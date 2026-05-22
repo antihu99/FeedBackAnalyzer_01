@@ -1,33 +1,32 @@
-package com.example.demo;
+package com.example.demo.config;
 
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
 
 public class Constants {
+
+    /** 감정·키워드 필터 "전체" (FR-13) */
+    public static final String FILTER_ALL = "전체";
+
     public static final Map<String, List<String>> SENTIMENT_KEYWORDS = new HashMap<>();
     public static final Map<String, Map<String, Object>> CATEGORY_KEYWORDS = new HashMap<>();
 
     static {
-        // Sentiment keywords
-        SENTIMENT_KEYWORDS.put("긍정", Arrays.asList(
+        SENTIMENT_KEYWORDS.put(Sentiment.POSITIVE.getLabel(), dedupe(
                 "좋아요", "만족", "감사", "최고", "좋은", "훌륭", "추천", "좋았어요",
                 "좋습니다", "최고입니다", "감사합니다", "만족스럽", "좋았습니다",
-                "최고에요", "기뻐요", "만족합니다", "굿", "최고다", "와우", "아주 좋아",
-                "좋아요", "만족", "감사", "최고", "좋은", "훌륭", "추천", "좋았어요",
-                "좋습니다", "최고입니다", "감사합니다", "만족스럽", "좋았습니다"
+                "최고에요", "기뻐요", "만족합니다", "굿", "최고다", "와우", "아주 좋아"
         ));
 
-        SENTIMENT_KEYWORDS.put("부정", Arrays.asList(
+        SENTIMENT_KEYWORDS.put(Sentiment.NEGATIVE.getLabel(), dedupe(
                 "나쁘", "불만", "실망", "최악", "별로", "불편", "불만족", "문제",
                 "불량", "불량품", "환불", "교환", "불만족스럽", "실망스럽",
-                "짜증", "화남", "별로에요", "엉망", "최악이다", "실패", "구려",
-                "나쁘", "불만", "실망", "최악", "별로", "불편", "불만족", "문제",
-                "불량", "불량품", "환불", "교환", "불만족스럽", "실망스럽"
+                "짜증", "화남", "별로에요", "엉망", "최악이다", "실패", "구려"
         ));
 
-        // Category keywords
         Map<String, Object> deliveryKeywords = new HashMap<>();
         deliveryKeywords.put("main", Arrays.asList("배송", "택배", "배달", "물류", "배송지연", "배송시간", "퀵", "소포"));
         Map<String, List<String>> deliverySub = new HashMap<>();
@@ -72,5 +71,9 @@ public class Constants {
         usabilitySub.put("action", Arrays.asList("사용"));
         usabilityKeywords.put("sub", usabilitySub);
         CATEGORY_KEYWORDS.put("사용성", usabilityKeywords);
+    }
+
+    private static List<String> dedupe(String... keywords) {
+        return List.copyOf(new LinkedHashSet<>(Arrays.asList(keywords)));
     }
 }

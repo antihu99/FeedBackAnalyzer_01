@@ -1,9 +1,8 @@
-package com.example.demo;
+package com.example.demo.model;
 
 public class Feedback {
 
     private String text;
-
     private String sentiment;
     private String category;
 

@@ -1,5 +1,9 @@
 package com.example.demo;
 
+import com.example.demo.config.Sentiment;
+import com.example.demo.model.Feedback;
+import com.example.demo.service.KeywordConfigService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
@@ -12,46 +16,67 @@ public class TextAnalyzer {
     private static Map<String, Integer> globalSent = null;
     private static Map<String, Integer> globalKw = null;
 
-    public Map<String, Integer> sent(List<Feedback> feedbacks) {
-        Map<String, Integer> res = new HashMap<>();
-        res.put("긍정", 0);
-        res.put("중립", 0);
-        res.put("부정", 0);
+    private final SentimentClassifier sentimentClassifier;
+    private final KeywordConfigService keywordConfig;
 
-        for (Feedback f : feedbacks) {
-            String txt = f.getText().toLowerCase();
-            String s = "중립";
-            if (Constants.SENTIMENT_KEYWORDS.get("긍정").stream().anyMatch(k -> txt.contains(k))) {
-                s = "긍정";
-            } else if (Constants.SENTIMENT_KEYWORDS.get("부정").stream().anyMatch(k -> txt.contains(k))) {
-                s = "부정";
-            }
-            res.put(s, res.get(s) + 1);
-        }
-
-        globalSent = res;
-        return res;
+    @Autowired
+    public TextAnalyzer(SentimentClassifier sentimentClassifier, KeywordConfigService keywordConfig) {
+        this.sentimentClassifier = sentimentClassifier;
+        this.keywordConfig = keywordConfig;
     }
 
-    public Map<String, Integer> kw(List<Feedback> feedbacks) {
-        Map<String, Integer> res2 = new HashMap<>();
-        for (String category : Constants.CATEGORY_KEYWORDS.keySet()) {
-            res2.put(category, 0);
+    /** 기존 단위 테스트 호환 */
+    public TextAnalyzer(SentimentClassifier sentimentClassifier) {
+        this(sentimentClassifier, KeywordConfigService.createInMemoryFromConstants());
+    }
+
+    public Map<String, Integer> analyzeSentiment(List<Feedback> feedbacks) {
+        Map<String, Integer> counts = newEmptySentimentCounts();
+
+        for (Feedback feedback : feedbacks) {
+            String label = sentimentClassifier.classify(feedback.getText());
+            counts.put(label, counts.get(label) + 1);
         }
 
-        for (Feedback f : feedbacks) {
-            String txt = f.getText().toLowerCase();
-            for (Map.Entry<String, Map<String, Object>> entry : Constants.CATEGORY_KEYWORDS.entrySet()) {
-                String cat = entry.getKey();
-                @SuppressWarnings("unchecked")
-                List<String> kws = (List<String>) entry.getValue().get("main");
-                if (kws.stream().anyMatch(kw -> txt.contains(kw))) {
-                    res2.put(cat, res2.get(cat) + 1);
-                }
+        globalSent = counts;
+        return counts;
+    }
+
+    public Map<String, Integer> analyzeKeywords(List<Feedback> feedbacks) {
+        Map<String, Integer> counts = newEmptyCategoryCounts();
+
+        for (Feedback feedback : feedbacks) {
+            incrementMatchingCategories(counts, feedback.getText().toLowerCase());
+        }
+
+        globalKw = counts;
+        return counts;
+    }
+
+    private static Map<String, Integer> newEmptySentimentCounts() {
+        Map<String, Integer> counts = new HashMap<>();
+        for (Sentiment sentiment : Sentiment.values()) {
+            counts.put(sentiment.getLabel(), 0);
+        }
+        return counts;
+    }
+
+    private Map<String, Integer> newEmptyCategoryCounts() {
+        Map<String, Integer> counts = new HashMap<>();
+        for (String category : keywordConfig.getCategoryKeywords().keySet()) {
+            counts.put(category, 0);
+        }
+        return counts;
+    }
+
+    private void incrementMatchingCategories(Map<String, Integer> counts, String lowerText) {
+        for (Map.Entry<String, Map<String, Object>> entry : keywordConfig.getCategoryKeywords().entrySet()) {
+            String category = entry.getKey();
+            @SuppressWarnings("unchecked")
+            List<String> mainKeywords = (List<String>) entry.getValue().get("main");
+            if (mainKeywords.stream().anyMatch(keyword -> lowerText.contains(keyword))) {
+                counts.put(category, counts.get(category) + 1);
             }
         }
-
-        globalKw = res2;
-        return res2;
     }
 }

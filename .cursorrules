@@ -1,0 +1,140 @@
+# Feedback Analyzer — Cursor Agent Rules (YAML)
+# Phase 3: 뼈대 → TDD 연동 → 리뷰 → 완성
+# 근거: docs/00_prd.md, docs/01_analysis.md, docs/03_work_guide.md, 작업규칙.TXT
+
+meta:
+  project: Feedback Analyzer
+  description: 자연어 고객 피드백 수집·키워드 분류·감정 분석·시각화 (Spring Boot + Thymeleaf)
+  version: "1.0"
+  locale: ko-KR
+
+stack:
+  language: Java 17
+  framework: Spring Boot 3.5.3
+  view: Thymeleaf
+  build: Maven
+  csv: OpenCSV 5.11.2
+  test: JUnit 5, spring-boot-starter-test
+  run: "mvn spring-boot:run"
+  url: "http://localhost:8080"
+
+always_read_first:
+  - docs/00_prd.md
+  - docs/01_analysis.md
+  - docs/02_work_scenario.md
+  - docs/03_work_guide.md
+  - tdd_rules.yaml
+
+branch_context:
+  integration: A-01
+  stages:
+    SPEC: 문서·분석만 (Phase 1 Mom Test 시 코드 금지)
+    RED: 실패 테스트·커버리지 90%
+    GREEN: 최소 구현·버그 3건 (FR-09~11)
+    REFACTORING: 구조·네이밍·SRP (FR-12~16)
+    New_Feature: Trend + File DB (FR-17~18)
+  pr_base: A-01
+  release: "A-01 → main"
+  do_not_delete_feature_branches: true
+
+coding_principles:
+  - Minimize diff scope; fix only what the task requires
+  - Match existing style until REFACTORING phase
+  - SRP: Controller = HTTP/Model only after step 6
+  - OCP: extend keywords via config/enum/File DB, not scattered edits
+  - Single source of truth for sentiment (TextAnalyzer + Filters must not diverge)
+  - Validate inputs: empty text, empty file, CSV without text column
+  - Prefer constructor injection; avoid new static global state
+  - Comments only for non-obvious business rules
+
+forbidden:
+  - Committing "*.class" or target/ build artifacts
+  - Breaking public HTTP contract without PRD update
+  - Large unrelated refactors in GREEN branch
+  - Feature-list-only answers in SPEC/Mom Test docs
+  - Hardcoding "C:\\tmp" for file upload
+  - Duplicating sentiment logic in Filters and TextAnalyzer
+
+package_target:
+  current: com.example.demo
+  goal:
+    - controller
+    - service
+    - model
+    - config
+    - repository
+
+api_contract_frozen:
+  endpoints:
+    - "GET /"
+    - "POST /analyze"
+    - "POST /upload"
+    - "POST /filter"
+    - "GET /download"
+  csv:
+    required_column: text
+    header_row: 1
+
+docs_output:
+  docs_format: "{NN}_{title}.md"
+  report_format: "{NN}_{title}.md"
+  prompting:
+    - "{NN}_{stage}_prompt.md"
+    - User_prompt.md
+    - GIT_prompt.md
+
+git_commit:
+  message_pattern: "{BRANCH} 단계 진행 | {BRANCH}: {summary}"
+  exclude_paths:
+    - target/**
+    - "**/*.class"
+
+agent_behavior:
+  before_code:
+    - Confirm current git branch matches task (RED/GREEN/REFACTORING)
+    - Read tdd_rules.yaml for active track (RED vs GREEN vs REFACTOR)
+    - Check 01_analysis.md for P0/P1 issues
+  when_implementing:
+    - Run "mvn test" after test or production code changes
+    - On GREEN: make failing RED tests pass with minimal change
+    - On REFACTORING: keep all tests green; no URL/CSV contract change
+  when_documenting:
+    - Korean for user-facing docs unless asked otherwise
+    - Link FR-xx IDs from 00_prd.md
+  prompts_official:
+    SPEC: "@Codebase 전체 구조·미션 안내 분석해줘"
+    RED: "@DemoApplicationTests.java 커버리지 90%… TextAnalyzer·Filters·FileHandler TC"
+    GREEN_FILTERS: "@Filters.java '중립' 필터 버그를 수정해줘"
+    GREEN_UI: "@index.html 텍스트 입력창을 multiline으로 수정"
+    GREEN_LOGGER: "@Logger.java 로그 레벨(warning/error)을 UI에서 제어하도록 수정"
+
+priority_fixes:
+  P0:
+    - id: FR-09
+      issue: neutral filter mismatch TextAnalyzer vs Filters
+    - id: FR-11
+      issue: log level UI on page
+  P1:
+    - id: FR-10
+      issue: multiline text input
+    - id: FR-08
+      issue: download Content-Disposition and fil_data source
+    - id: FR-03
+      issue: upload path portable + post-upload stats
+
+naming_refactor_targets:
+  rename_map:
+    fil: filterFeedbacks
+    sent: analyzeSentiment
+    kw: analyzeKeywords
+    fil_data: filteredFeedbacksForExport
+
+references:
+  prd: docs/00_prd.md
+  analysis: docs/01_analysis.md
+  scenario: docs/02_work_scenario.md
+  guide: docs/03_work_guide.md
+  mom_test: docs/04_mom_test.md
+  code_smell: docs/05_code_smell.md
+  tdd: tdd_rules.yaml
+  purpose: project_purpose.md
