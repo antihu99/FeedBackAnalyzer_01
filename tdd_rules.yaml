@@ -1,0 +1,201 @@
+# Feedback Analyzer — TDD / Dual-Track Rules
+# PART 3: RED(실패 테스트) + GREEN(최소 구현)
+# PART 4: Refactoring (외부 계약 불변, GREEN 유지)
+# 근거: 작업규칙.TXT, docs/00_prd.md, docs/02_work_scenario.md
+
+meta:
+  project: Feedback Analyzer
+  version: "1.0"
+  coverage_tool: jacoco
+  coverage_minimum_percent: 90
+  test_framework: JUnit 5
+
+tracks:
+  RED:
+    branch: RED
+    prd: [FR-19, FR-20, FR-21]
+    goal: Write tests first; expose bugs and gaps
+    allow_test_failures: true
+    allow_production_changes: minimal  # stubs only if needed for compile
+    merge_prerequisite:
+      - jacoco_line_coverage_gte: 90
+      - test_classes_exist:
+          - TextAnalyzerTest
+          - FiltersTest
+          - FileHandlerTest
+      - report: report/00_RED_coverage_report.md
+
+  GREEN:
+    branch: GREEN
+    prd: [FR-09, FR-10, FR-11]
+    goal: Minimal code to pass RED tests and fix P0 bugs
+    allow_test_failures: false
+    allow_production_changes: true
+    forbidden_in_this_track:
+      - full package restructure
+      - renaming public API paths
+      - large Controller split
+    required_fixes:
+      - sentiment_rules_unified  # TextAnalyzer + Filters same logic
+      - neutral_filter_correct
+      - multiline_input
+      - log_level_ui_warning_error
+    recommended_fixes:
+      - download_content_disposition
+      - upload_without_C_tmp
+      - upload_shows_sentiment_keyword_results
+    merge_prerequisite:
+      - mvn_test: pass
+      - jacoco_line_coverage_gte: 90
+      - report: report/01_GREEN_bugfix_report.md
+
+  REFACTOR:
+    branch: REFACTORING
+    prd: [FR-12, FR-13, FR-14, FR-15, FR-16]
+    goal: Improve structure without behavior change
+    allow_test_failures: false
+    contract_immutable:
+      http_paths: [/ , /analyze, /upload, /filter, /download]
+      csv_column: text
+    merge_prerequisite:
+      - mvn_test: pass
+      - jacoco_line_coverage_gte: 90
+      - report: report/02_REFACTORING_report.md
+
+  FEATURE:
+    branch: New_Feature
+    prd: [FR-17, FR-18]
+    goal: Trend visualization + File DB keywords
+    allow_test_failures: false
+    new_tests_required: true
+    merge_prerequisite:
+      - mvn_test: pass
+      - jacoco_line_coverage_gte: 90
+      - report: report/03_New_Feature_report.md
+
+workflow:
+  cycle: RED -> GREEN -> REFACTOR -> FEATURE
+  rule: Never skip RED before GREEN for same behavior
+  refactoring_rule: Tests must stay green; change structure only
+
+commands:
+  test: "mvn test"
+  test_with_coverage: "mvn test jacoco:report"
+  run_app: "mvn spring-boot:run"
+  coverage_report_path: target/site/jacoco/index.html
+
+test_layout:
+  base_package: com.example.demo
+  naming:
+    unit: "{ClassName}Test"
+    integration_optional: "{Feature}IntegrationTest"
+  location: src/test/java/com/example/demo/
+
+required_test_suites:
+  TextAnalyzerTest:
+    class_under_test: TextAnalyzer
+    must_cover:
+      - analyzeSentiment_positive_keyword
+      - analyzeSentiment_negative_keyword
+      - analyzeSentiment_neutral_default_or_keyword
+      - analyzeKeywords_each_category
+      - empty_feedback_list
+  FiltersTest:
+    class_under_test: Filters
+    must_cover:
+      - filter_sentiment_positive
+      - filter_sentiment_negative
+      - filter_sentiment_neutral  # critical: FR-09
+      - filter_sentiment_all
+      - filter_keyword_category
+      - filter_keyword_all
+      - combined_sentiment_and_keyword
+  FileHandlerTest:
+    class_under_test: FileHandler
+    must_cover:
+      - save_or_saveResult_no_exception
+      - empty_list_handling
+  DemoApplicationTests:
+    keep: contextLoads
+    extend: optional_web_layer_smoke
+
+test_cases_from_analysis:
+  bug_regression:
+    - id: TC-NEUTRAL-01
+      description: "보통입니다" filtered as neutral matches analyzeSentiment
+      relates: FR-09
+      phase_introduced: RED
+      must_pass_by: GREEN
+    - id: TC-NEUTRAL-02
+      description: "괜찮" priority does not flip neutral filter unexpectedly
+      relates: FR-09
+    - id: TC-DOWNLOAD-01
+      description: Content-Disposition attachment; filename=
+      relates: FR-08
+      phase_introduced: GREEN
+    - id: TC-UPLOAD-01
+      description: CSV upload without C:\tmp
+      relates: FR-03
+      phase_introduced: GREEN
+
+mocking_policy:
+  prefer: real Constants or test fixtures over heavy mocks
+  mock_when: HttpServletResponse, MultipartFile in controller tests
+  do_not_mock: sentiment keyword matching logic under test
+
+jacoco:
+  plugin_required: true
+  pom_snippet_hint: org.jacoco:jacoco-maven-plugin
+  rules:
+    - package: com.example.demo
+      minimum_line_coverage: 0.90
+  exclude_from_coverage:
+    - com.example.demo.DemoApplication
+
+red_phase_examples:
+  - name: neutral_filter_fails_before_fix
+    given: feedbacks with text "보통이에요"
+    when: filter sentiment=중립
+    then: result contains feedback  # fails on baseline
+  - name: sentiment_count_matches_filter
+    given: mixed sentiment list
+    when: analyzeSentiment then filter
+    then: counts consistent
+
+green_phase_minimal_fix_order:
+  1: extract_or_unify SentimentClassifier
+  2: fix Filters.fil to use unified classifier
+  3: fix index.html multiline + log panel
+  4: fix download header and export source
+  5: fix upload stream path
+
+refactor_phase_checklist:
+  - extract FeedbackService from FeedbackController
+  - rename fil/sent/kw per .cursorrules rename_map
+  - move Constants to config or enum
+  - remove Session static; use session-scoped or service state
+  - delete or wire FileHandler dead code
+
+agent_instructions:
+  on_RED_branch:
+    - Write failing tests before production fix
+    - Document failing test names in report/00_RED_coverage_report.md
+  on_GREEN_branch:
+    - Smallest change to pass tests
+    - Run mvn test after each fix
+  on_REFACTORING_branch:
+    - One refactor per commit; tests green each step
+  never:
+    - Delete tests to raise coverage
+    - @Disabled tests without issue link and GREEN follow-up
+
+reports:
+  RED: report/00_RED_coverage_report.md
+  GREEN: report/01_GREEN_bugfix_report.md
+  REFACTOR: report/02_REFACTORING_report.md
+  FEATURE: report/03_New_Feature_report.md
+
+references:
+  cursorrules: .cursorrules
+  prd: docs/00_prd.md
+  analysis: docs/01_analysis.md
