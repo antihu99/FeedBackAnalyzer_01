@@ -106,4 +106,25 @@ class FeedbackControllerWebTest {
         mockMvc.perform(multipart("/upload").file(file))
                 .andExpect(status().isOk());
     }
+
+    @Test
+    @DisplayName("FR-18: POST /keywords/add")
+    void keywords_add() throws Exception {
+        mockMvc.perform(post("/keywords/add")
+                        .param("sentiment", "긍정")
+                        .param("keyword", "웹테스트키워드"))
+                .andExpect(status().isOk());
+    }
+
+    @Test
+    @DisplayName("FR-18: POST /keywords/remove")
+    void keywords_remove() throws Exception {
+        mockMvc.perform(post("/keywords/add")
+                .param("sentiment", "긍정")
+                .param("keyword", "삭제대상"));
+        mockMvc.perform(post("/keywords/remove")
+                        .param("sentiment", "긍정")
+                        .param("keyword", "삭제대상"))
+                .andExpect(status().isOk());
+    }
 }
