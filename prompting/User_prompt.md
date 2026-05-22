@@ -20,7 +20,10 @@
 
 |------|------|
 
-| 총 프롬프트 수 | **56** |
+| 총 프롬프트 수 | **58** |
+| QA·회고 | #57~#58 |
+| **QA HEAD** | `71f241f` → step5 후 갱신 |
+| 테스트 (QA) | Tests **41**, Failures **0**, JaCoCo **90.4%** |
 
 | SPEC 관련 | #1~#17 |
 
@@ -145,6 +148,8 @@
 | 54 | 2026-05-22 | Ask | **PR 미생성 이유** | pr 이 생성되지 않은 이유가 뭔가요? |
 | 55 | 2026-05-22 | Ask | **gh auth 확인** | gh auth login 이 확인이 될까요? / gh 인증 확인해줘 |
 | 56 | 2026-05-22 | Git | **PR·prompt** | PR 생성해줘 / 프롬프트를 저장해줘 |
+| 57 | 2026-05-22 | QA | **PCTF 07 실행** | @07_QA_REVIEW_PCTF_prompt.md (288-325) 리팩토링 전후 비교 보고서 |
+| 58 | 2026-05-22 | QA | **회고·PR 진행** | 네... 진행하세요 (9단계 회고, QA→A-01 PR) |
 
 
 
@@ -166,6 +171,8 @@
 
 | GREEN | `02_GREEN_prompt.md` | 완료 |
 | REFACTORING | `03_REFACTORING_prompt.md` | step4~6 완료 |
+| New_Feature | `04_New_Feature_prompt.md` | 완료 |
+| QA REVIEW | `05_QA_REVIEW_prompt.md` | step2~5 완료 |
 
 | Git 명령 | `GIT_prompt.md` | 본 갱신 포함 |
 

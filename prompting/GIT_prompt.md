@@ -10,10 +10,10 @@
 | 항목 | 내용 |
 |------|------|
 | 작업 디렉터리 | `d:\Vs_workplace\Java_project\FeedBackAnalyzer_01` |
-| **현재 브랜치** | **`new_feature`** |
-| **A-01 HEAD** | **`28be9e9`** (report 번호 재매김 등) |
-| **new_feature HEAD** | **`bc1724f`** (= A-01) |
-| **A-01 HEAD** | **`bc1724f`** (`new_feature` Fast-forward 머지) |
+| **현재 브랜치** | **`QA`** |
+| **QA HEAD** | step5 후 갱신 (`71f241f` + 회고) |
+| **A-01 HEAD** | `bc1724f` + QA 문서 머지 예정 |
+| **new_feature HEAD** | **`bc1724f`** |
 | **gh 인증** | **미로그인** — `gh pr edit` 수동 필요 |
 | **REFACTORING HEAD** | **`2ccbe96`** |
 | 원격 | `https://github.com/antihu99/FeedBackAnalyzer_01.git` |
@@ -185,6 +185,26 @@ git push -u origin new_feature
 
 ---
 
+## 커밋 이력 (QA)
+
+| 해시 | 메시지 | push |
+|------|--------|------|
+| `0283d46` | QA step2: add QA review outline (docs/12) | `git push origin QA` |
+| `71f241f` | QA step4: report/05_REVIEW_refactoring_report.md | `git push origin QA` |
+| *(step5)* | QA step5: report/06_retrospective.md | `git push origin QA` |
+
+```bash
+git checkout QA
+git add docs/12_QA_review_outline.md && git commit -m "QA step2: add QA review outline (docs/12)"
+git add report/05_REVIEW_refactoring_report.md && git commit -m "QA step4: report/05_REVIEW_refactoring_report.md"
+git add report/06_retrospective.md prompting/05_QA_REVIEW_prompt.md && git commit -m "QA step5: report/06_retrospective.md"
+git push origin QA
+gh pr create --base A-01 --head QA   # gh auth login 필요
+git checkout A-01 && git pull origin A-01 && git merge QA && git push origin A-01
+```
+
+---
+
 ## prompting 동기화 (2026-05-22)
 
 | 파일 | 역할 |
@@ -194,5 +214,6 @@ git push -u origin new_feature
 | `02_GREEN_prompt.md` | GREEN Agent 기록 |
 | `03_REFACTORING_prompt.md` | REFACTORING step4~6 Agent 기록 |
 | `04_New_Feature_prompt.md` | New_Feature PCTF 06 Agent 기록 |
-| `User_prompt.md` | 사용자 prompt 표 (#1~#56) |
+| `05_QA_REVIEW_prompt.md` | QA REVIEW·회고 Agent 기록 |
+| `User_prompt.md` | 사용자 prompt 표 (#1~#58) |
 | `GIT_prompt.md` | 본 문서 |
