@@ -65,6 +65,14 @@ mvn spring-boot:run
 | `04_mom_test.md` | Mom Test 질문·가정 검증 |
 | `05_code_smell.md` | 코드 스멜 사례 3건 |
 | `06_todo_list.md` | To-Do·마일스톤·회귀 체크리스트 (Phase 6) |
+| `07_RED_test_plan.md` | RED 단계 **TEST_PLAN** (TC PASS/FAIL 명세) |
+
+### 3.1.0. pctf/ — 단계별 PCTF (Prompt 입력)
+
+| 파일 | 산출물 |
+|------|--------|
+| `00_RED_test_plan_PCTF.md` | `docs/07_RED_test_plan.md` |
+| `01_RED_PCTF_prompt.md` | `src/test/**`, JaCoCo, `report/00_RED_coverage_report.md` |
 
 ### 3.1.1. 프로젝트 루트 — Agent·TDD 규칙 (YAML)
 
@@ -221,6 +229,7 @@ git push -u origin SPEC
 
 ### RED
 
+- [ ] `docs/07_RED_test_plan.md` (TEST_PLAN, `pctf/00_RED_test_plan_PCTF.md`)
 - [ ] JaCoCo 설정
 - [ ] TextAnalyzer / Filters / FileHandler TC
 - [ ] coverage ≥ 90%
