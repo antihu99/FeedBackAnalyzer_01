@@ -3,7 +3,7 @@
 | 항목 | 내용 |
 |------|------|
 | 단계 | GREEN (3단계 — TDD 최소 구현, FR-09) |
-| 브랜치 | `GREEN` → `A-01` PR |
+| 브랜치 | `GREEN` → `A-01` (**머지 완료** @ `6e88371`) |
 | 기간 | 2026-05-22 |
 | 최종 갱신 | 2026-05-22 |
 | 규칙 | `작업규칙.TXT` § prompting |
@@ -19,8 +19,11 @@ Agent는 **Feedback Analyzer** GREEN 단계에서 다음을 수행했다.
 2. `mvn test`: Tests **34**, Failures **0**, JaCoCo line **90.8%**
 3. 리포트: `report/01_GREEN_bugfix_report.md`
 4. Git: `87136db`, `c9b926a` → `origin/GREEN`
-5. PR: `GREEN` → `A-01` (본 작업)
-6. 문서: `prompting/02_GREEN_prompt.md`, `User_prompt.md`, `GIT_prompt.md` 갱신
+5. PR #4: `GREEN` → `A-01` (**MERGED**)
+6. `docs/08_GREEN_test_results.md` — TC 실측 (머지 전)
+7. `GREEN` → `A-01` fast-forward 머지, `origin/A-01` push
+8. PR #3 (`A-01` → `main`) 제목·본문 SPEC+RED+GREEN 갱신
+9. `prompting/` 5종 동기화
 
 ---
 
@@ -79,11 +82,15 @@ F (Format)
 | | G-06: Tests 34, Failures **0**, JaCoCo **90.8%** |
 | | 커밋 `87136db`, `c9b926a`, push `origin/GREEN` |
 
-### 3.3. PR·문서화
+### 3.3. PR·문서화·머지
 
 | User | Agent |
 |------|-------|
-| A-01과 GREEN PR 생성 + 문서화 | PR `GREEN` → `A-01`, `02_GREEN_prompt.md` 등 |
+| A-01과 GREEN PR + 문서화 | PR #4, `02_GREEN_prompt.md` |
+| MERGE 전 docs TC 결과 | `docs/08_GREEN_test_results.md` (`6e88371`) |
+| A-01 ↔ GREEN 머지 | Fast-forward, `origin/A-01` = `6e88371` |
+| A-01 → main PR 갱신 | PR #3 제목·본문 GREEN 반영 |
+| prompting 동기화 | `User_prompt.md`, `GIT_prompt.md` 등 |
 
 ---
 
@@ -111,10 +118,11 @@ After:  fil() → Constants.SENTIMENT_KEYWORDS (TextAnalyzer.sent()와 동일)
 |------|------|--------|----------------|
 | 1 | `87136db` | GREEN: TC-NEUTRAL-01/02 neutral filter alignment (FR-09) | `Filters.java` |
 | 2 | `c9b926a` | GREEN: report/01_GREEN_bugfix_report.md | `report/01_GREEN_bugfix_report.md` |
-| 3 | *(본 작업)* | GREEN: prompting·PCTF 문서화 | `prompting/`, `pctf/02_GREEN_PCTF_prompt.md` |
+| 3 | `47a62be` | GREEN: prompting·PCTF 문서화 | `prompting/`, `pctf/02_GREEN_PCTF_prompt.md` |
+| 4 | `6e88371` | GREEN: docs/08_GREEN_test_results.md | `docs/08`, `docs/03_work_guide` |
 
-**base**: `e07ca6b` (RED 머지, A-01·GREEN 공통)  
-**PR**: `GREEN` → `A-01`
+**base**: `e07ca6b` (RED 머지)  
+**머지**: `GREEN` → `A-01` @ `6e88371` · PR #4 **MERGED**
 
 ---
 
@@ -125,6 +133,12 @@ After:  fil() → Constants.SENTIMENT_KEYWORDS (TextAnalyzer.sent()와 동일)
 | 파일 | 변경 |
 |------|------|
 | `Filters.java` | `resolveSentimentLikeAnalyzer()` 추가, `fil()` 감정 판정 통일 |
+
+### docs/
+
+| 파일 | 역할 |
+|------|------|
+| `08_GREEN_test_results.md` | GREEN TC **실측** (TEST_PLAN 대비) |
 
 ### report/
 
@@ -155,18 +169,23 @@ mvn test: Failures=0  |  JaCoCo ≥ 90%
 report/01_GREEN_bugfix_report.md
          │
          ▼
-PR GREEN → A-01  |  REFACTORING (별도)
+PR #4 MERGED → A-01 @ 6e88371  |  PR #3 → main (OPEN)
+         │
+         ▼
+REFACTORING (별도)  |  FR-10/11 (별도 PCTF)
 ```
 
 ---
 
 ## 8. 후속 작업 (미완)
 
-| # | 작업 | 담당 |
-|---|------|------|
-| 1 | PR `GREEN` → `A-01` 리뷰·머지 | 리뷰어 |
-| 2 | FR-10/11 (multiline, Logger UI) | 별도 PCTF |
-| 3 | `REFACTORING` 브랜치 | 개발자 |
+| # | 작업 | 담당 | 상태 |
+|---|------|------|------|
+| 1 | PR #3 `A-01` → `main` 머지 | 리뷰어 | **OPEN** |
+| 2 | FR-10/11 (multiline, Logger UI) | 별도 PCTF | 미착수 |
+| 3 | `REFACTORING` 브랜치 | 개발자 | 미착수 |
+| 4 | PR #4 GREEN→A-01 | — | **완료** |
+| 5 | GREEN→A-01 로컬 머지 | — | **완료** (`6e88371`) |
 
 ---
 
@@ -180,3 +199,5 @@ PR GREEN → A-01  |  REFACTORING (별도)
 | GREEN 리포트 | `report/01_GREEN_bugfix_report.md` |
 | TEST_PLAN | `docs/07_RED_test_plan.md` |
 | GREEN PCTF | `pctf/02_GREEN_PCTF_prompt.md` |
+| GREEN TC 실측 | `docs/08_GREEN_test_results.md` |
+| PR #3 릴리스 | GitHub PR #3 (A-01→main) |

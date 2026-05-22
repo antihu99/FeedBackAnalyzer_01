@@ -5,7 +5,7 @@
 | 단계 | SPEC (1단계 — 프로젝트 개요·준비) |
 | 브랜치 | `SPEC` |
 | 기간 | 2026-05-21 |
-| 최종 갱신 | 2026-05-21 |
+| 최종 갱신 | 2026-05-22 (prompting 교차참조 동기화) |
 | 규칙 | `작업규칙.TXT` § prompting |
 | 코드 변경 | **없음** (문서·Git·규칙 파일만) |
 
@@ -126,7 +126,16 @@ Agent는 **Feedback Analyzer** SPEC 단계에서 다음을 수행했다.
 
 ### prompting/ · report/
 
-`00_SPEC_prompt.md` · `User_prompt.md` · `GIT_prompt.md` · `report/00_SPEC_phase_report.md`
+| 파일 | 단계 |
+|------|------|
+| `00_SPEC_prompt.md` | SPEC Agent 기록 |
+| `01_RED_prompt.md` | RED Agent 기록 |
+| `02_GREEN_prompt.md` | GREEN Agent 기록 |
+| `User_prompt.md` | 사용자 prompt #1~#40 |
+| `GIT_prompt.md` | Git·PR 이력 |
+| `report/00_SPEC_phase_report.md` | SPEC 보고서 |
+
+**A-01 통합 HEAD** (2026-05-22): `6e88371` — SPEC + RED + GREEN
 
 ---
 
@@ -146,5 +155,8 @@ Agent는 **Feedback Analyzer** SPEC 단계에서 다음을 수행했다.
 |------|------|
 | 사용자 프롬프트 표 | `prompting/User_prompt.md` |
 | Git 명령 | `prompting/GIT_prompt.md` |
+| RED Agent 기록 | `prompting/01_RED_prompt.md` |
+| GREEN Agent 기록 | `prompting/02_GREEN_prompt.md` |
 | SPEC 보고서 | `report/00_SPEC_phase_report.md` |
 | To-Do | `docs/06_todo_list.md` |
+| PR #3 릴리스 | A-01 → main (OPEN) |

@@ -10,13 +10,13 @@
 | 항목 | 내용 |
 |------|------|
 | 작업 디렉터리 | `d:\Vs_workplace\Java_project\FeedBackAnalyzer_01` |
-| 현재 브랜치 (기록 시점) | `GREEN` |
+| **현재 브랜치** | **`A-01`** |
+| **A-01 / GREEN HEAD** | **`6e88371`** |
 | 원격 | `https://github.com/antihu99/FeedBackAnalyzer_01.git` |
-| SPEC 커밋 | `a306870` → `9b03001` |
-| RED 커밋 | `e6c9b09` → `e07ca6b` |
-| GREEN 커밋 | `87136db` → `c9b926a` (+ 문서화) |
-| A-01 HEAD | `e07ca6b` (GREEN PR 대기) |
-| PR | #1 SPEC→A-01 · #2 RED→A-01 · #3 A-01→main · **#4 GREEN→A-01** |
+| SPEC | `a306870` → `9b03001` |
+| RED | `e6c9b09` → `e07ca6b` |
+| GREEN | `87136db` → `6e88371` (4커밋) |
+| **PR** | #1 SPEC→A-01 · #2 RED→A-01 · **#3 A-01→main OPEN** · #4 GREEN→A-01 **MERGED** |
 
 ---
 
@@ -44,11 +44,13 @@
 
 | 해시 | 메시지 | push |
 |------|--------|------|
-| `87136db` | GREEN: TC-NEUTRAL-01/02 neutral filter alignment (FR-09) | `git push origin GREEN` |
-| `c9b926a` | GREEN: report/01_GREEN_bugfix_report.md | `git push origin GREEN` |
-| *(문서화)* | GREEN: prompting·PCTF 문서화 | `git push origin GREEN` |
+| `87136db` | GREEN: TC-NEUTRAL-01/02 neutral filter alignment (FR-09) | `origin/GREEN` |
+| `c9b926a` | GREEN: report/01_GREEN_bugfix_report.md | `origin/GREEN` |
+| `47a62be` | GREEN: prompting·PCTF 문서화 | `origin/GREEN` |
+| `6e88371` | GREEN: docs/08_GREEN_test_results.md (TC 실행 결과, 머지 전) | `origin/GREEN` |
 
-**PR**: `GREEN` → `A-01` (#4, `origin/A-01..origin/GREEN` 2커밋+문서)
+**머지 GREEN → A-01**: Fast-forward `e07ca6b`..`6e88371` → `git push origin A-01`  
+**PR #4**: MERGED (GitHub) · **PR #3**: OPEN, 제목 `SPEC + RED + GREEN` 갱신
 
 ---
 
@@ -59,131 +61,66 @@ cd "d:\Vs_workplace\Java_project\FeedBackAnalyzer_01"
 
 # --- 조회 ---
 git status
-git status -sb
-git branch
 git branch -a
-git branch -vv
-git remote -v
-git remote get-url origin
 git fetch origin
-git rev-parse HEAD
-git rev-parse origin/A-01
-git rev-parse origin/SPEC
-git rev-parse origin/RED
-git log --oneline -1 HEAD
-git log --oneline -3
 git log --oneline -5
-git log origin/A-01..origin/RED --oneline
 git log origin/main..origin/A-01 --oneline
-git diff --stat origin/A-01...HEAD
-git ls-remote --heads origin RED
-git stash list
+git rev-parse A-01 origin/GREEN origin/A-01
 
 # --- A-01 ---
-git checkout -b A-01
-git push -u origin A-01
 git checkout A-01
 git pull origin A-01
 
 # --- SPEC → A-01 ---
-git merge SPEC -m "Merge branch 'SPEC' into A-01"
+git merge SPEC
 git push origin A-01
 
-# --- SPEC ---
-git checkout -b SPEC
-git add docs/
-git commit -m "SPEC 단계 진행"
-git push -u origin SPEC
-git add docs/ prompting/ report/ .cursorrules tdd_rules.yaml
-git commit -m "#SPEC 단계 : PRD, TODO, 작업 시나이오 작성"
-git push origin SPEC
-
-# --- RED 브랜치 ---
-git checkout A-01
-git branch RED
+# --- RED ---
 git checkout RED
 git push -u origin RED
-git add pctf/
-git commit -m "Red 단계진행을 위한 준비"
-git push -u origin RED
-
-# --- RED 구현 커밋 ---
-git add pom.xml docs/07_RED_test_plan.md docs/03_work_guide.md pctf/ \
-  report/00_RED_coverage_report.md \
-  src/test/java/com/example/demo/TextAnalyzerTest.java \
-  src/test/java/com/example/demo/FiltersTest.java \
-  src/test/java/com/example/demo/FileHandlerTest.java \
-  src/test/java/com/example/demo/FeedbackTest.java \
-  src/test/java/com/example/demo/SessionTest.java \
-  src/test/java/com/example/demo/LoggerTest.java \
-  src/test/java/com/example/demo/UIComponentsTest.java \
-  src/test/java/com/example/demo/FeedbackControllerWebTest.java
-git add -u pctf/
 git commit -m "RED 단계 진행: TEST_PLAN + JUnit + JaCoCo 90.9%"
 git push origin RED
+git checkout A-01 && git merge RED && git push origin A-01
 
-# --- RED → A-01 ---
-git fetch origin
+# --- GREEN ---
+git checkout GREEN
+git commit -m "GREEN: TC-NEUTRAL-01/02 neutral filter alignment (FR-09)"
+git commit -m "GREEN: report/01_GREEN_bugfix_report.md"
+git commit -m "GREEN: prompting·PCTF 문서화"
+git commit -m "GREEN: docs/08_GREEN_test_results.md (TC 실행 결과, 머지 전)"
+git push origin GREEN
+
+# --- GREEN → A-01 (로컬 머지) ---
 git checkout A-01
 git pull origin A-01
-git merge RED -m "Merge branch 'RED' into A-01"
+git merge GREEN
 git push origin A-01
 
-# --- GREEN 브랜치 (A-01 기준, RED 머지 후) ---
-git checkout GREEN
-git add src/main/java/com/example/demo/Filters.java
-git commit -m "GREEN: TC-NEUTRAL-01/02 neutral filter alignment (FR-09)"
-git add report/01_GREEN_bugfix_report.md
-git commit -m "GREEN: report/01_GREEN_bugfix_report.md"
-git push origin GREEN
-
-# --- GREEN 문서화 ---
-git add prompting/02_GREEN_prompt.md prompting/01_RED_prompt.md prompting/User_prompt.md prompting/GIT_prompt.md pctf/02_GREEN_PCTF_prompt.md
-git commit -m "GREEN: prompting·PCTF 문서화"
-git push origin GREEN
-
-# --- 원격 동기화 (main 충돌 시) ---
-git pull origin RED
-git checkout main
-git stash push -u -m "sync-temp" -- "Cursor AI_퀴즈_김경림.docx"
-git pull origin main
-git checkout RED
+# --- baseline 확인 (G-00) ---
+git stash push -- src/main/java/com/example/demo/Filters.java
+mvn test
+git stash pop
 ```
 
 ---
 
-## 명령 ↔ 용도
+## PR (GitHub)
 
-| 명령 | 용도 |
-|------|------|
-| `git merge SPEC` (on A-01) | SPEC → A-01 |
-| `git branch RED` | A-01 기준 RED 생성 |
-| `git add pctf/` + commit | PCTF 준비 (`e6c9b09`) |
-| `git add pom.xml src/test/ docs/07 …` | RED 구현 (`e07ca6b`) |
-| `git merge RED` (on A-01) | RED → A-01 통합 |
-| `git push origin RED` / `A-01` | 원격 반영 |
-| `git ls-remote --heads origin RED` | 원격 RED 존재 확인 |
+| PR | base | head | 상태 | 비고 |
+|----|------|------|------|------|
+| #1 | A-01 | SPEC | Merged | SPEC 문서 |
+| #2 | A-01 | RED | Merged | RED PCTF·테스트 |
+| **#3** | **main** | **A-01** | **OPEN** | 릴리스 SPEC+RED+GREEN (`6e88371`) |
+| #4 | A-01 | GREEN | **MERGED** | FR-09·리포트·docs/08 |
+
+PR #3 갱신: REST API `PATCH /pulls/3` — 제목·본문 GREEN 반영
 
 ---
 
 ## 스테이징 제외 (항상)
 
-- `target/**`
-- `**/*.class`
+- `target/**`, `**/*.class`
 - `target/maven-status/`, `target/surefire-reports/`, `target/site/jacoco/`
-
----
-
-## PR (GitHub API / gh)
-
-| PR | base | head | 비고 |
-|----|------|------|------|
-| #1 | A-01 | SPEC | SPEC 단계 |
-| #2 | A-01 | RED | PCTF 준비 |
-| #3 | main | A-01 | SPEC+RED 릴리스 |
-| **#4** | **A-01** | **GREEN** | **FR-09, GREEN 리포트·문서** |
-
-`gh pr create --base A-01 --head GREEN`
 
 ---
 
@@ -192,7 +129,18 @@ git checkout RED
 ```bash
 git checkout A-01
 git pull origin A-01
-git merge GREEN
-git push origin A-01
+# PR #3 머지 후 main pull
 git checkout -b REFACTORING
 ```
+
+---
+
+## prompting 동기화 (2026-05-22)
+
+| 파일 | 역할 |
+|------|------|
+| `00_SPEC_prompt.md` | SPEC Agent 기록 |
+| `01_RED_prompt.md` | RED Agent 기록 |
+| `02_GREEN_prompt.md` | GREEN Agent 기록 |
+| `User_prompt.md` | 사용자 prompt 표 (#1~#40) |
+| `GIT_prompt.md` | 본 문서 |

@@ -245,14 +245,14 @@ GREEN 단계 (프로덕션 FR-09 수정)
 
 ---
 
-## 8. 후속 작업 (미완)
+## 8. 후속 작업
 
-| # | 작업 | 담당 |
-|---|------|------|
-| 1 | PR #3 (`A-01` → `main`) 리뷰·머지 | 리뷰어 |
-| 2 | `GREEN` 브랜치 — TC-NEUTRAL-01/02 PASS | 개발자 |
-| 3 | `prompting/User_prompt.md`, `GIT_prompt.md` RED 구간 반영 | 완료 |
-| 4 | GREEN — `prompting/02_GREEN_prompt.md` | 완료 |
+| # | 작업 | 담당 | 상태 |
+|---|------|------|------|
+| 1 | PR #3 (`A-01` → `main`) — SPEC+RED+GREEN | 리뷰어 | **OPEN** (`6e88371`) |
+| 2 | GREEN TC-NEUTRAL PASS | 개발자 | **완료** |
+| 3 | prompting RED/GREEN 동기화 | Agent | **완료** |
+| 4 | `docs/08_GREEN_test_results.md` | Agent | **완료** |
 
 ---
 
@@ -266,3 +266,5 @@ GREEN 단계 (프로덕션 FR-09 수정)
 | RED 커버리지 보고서 | `report/00_RED_coverage_report.md` |
 | TEST_PLAN | `docs/07_RED_test_plan.md` |
 | PCTF 00·01 | `pctf/00_RED_test_plan_PCTF.md`, `pctf/01_RED_PCTF_prompt.md` |
+| GREEN 기록 | `prompting/02_GREEN_prompt.md` |
+| GREEN TC 실측 | `docs/08_GREEN_test_results.md` |
