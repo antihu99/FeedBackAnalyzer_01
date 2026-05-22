@@ -12,7 +12,8 @@
 | 작업 디렉터리 | `d:\Vs_workplace\Java_project\FeedBackAnalyzer_01` |
 | **현재 브랜치** | **`new_feature`** |
 | **A-01 HEAD** | **`28be9e9`** (report 번호 재매김 등) |
-| **new_feature HEAD** | **`b7e4d54`** (step5 report) |
+| **new_feature HEAD** | **`86b4775`** (작업규칙 8단계) |
+| **gh 인증** | **미로그인** — PR 생성 대기 |
 | **REFACTORING HEAD** | **`2ccbe96`** |
 | 원격 | `https://github.com/antihu99/FeedBackAnalyzer_01.git` |
 | SPEC | `a306870` → `9b03001` |
@@ -154,6 +155,16 @@ git push -u origin REFACTORING
 | `e690d9c` | FEATURE step3: add Trend and Keyword File DB tests | `origin/new_feature` |
 | `852fc4c` | FEATURE step4: Trend visualization and File DB keywords | `origin/new_feature` |
 | `b7e4d54` | FEATURE step5: report/04_New_Feature_report.md | `origin/new_feature` |
+| `f3e8518` | FEATURE: docs/11 test results and prompting | `origin/new_feature` |
+| `86b4775` | docs: 작업규칙 8단계 REVIEW(QA) 단계 추가 | `origin/new_feature` |
+
+**PR `new_feature` → `A-01`**: 미생성 — `gh auth login` 후 `gh pr create` 또는 [compare URL](https://github.com/antihu99/FeedBackAnalyzer_01/compare/A-01...new_feature)
+
+```bash
+gh auth status
+gh auth login
+gh pr create --base A-01 --head new_feature
+```
 
 ```bash
 git checkout A-01
@@ -176,5 +187,5 @@ git push -u origin new_feature
 | `02_GREEN_prompt.md` | GREEN Agent 기록 |
 | `03_REFACTORING_prompt.md` | REFACTORING step4~6 Agent 기록 |
 | `04_New_Feature_prompt.md` | New_Feature PCTF 06 Agent 기록 |
-| `User_prompt.md` | 사용자 prompt 표 (#1~#50) |
+| `User_prompt.md` | 사용자 prompt 표 (#1~#56) |
 | `GIT_prompt.md` | 본 문서 |

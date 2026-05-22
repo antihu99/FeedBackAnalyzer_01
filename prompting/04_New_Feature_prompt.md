@@ -5,7 +5,7 @@
 | 단계 | New_Feature (7단계 — FR-17~18 Trend + File DB) |
 | 브랜치 | `new_feature` |
 | 기간 | 2026-05-22 |
-| 최종 갱신 | 2026-05-22 |
+| 최종 갱신 | 2026-05-22 (prompt·PR 후속) |
 | 규칙 | `작업규칙.TXT` § prompting |
 | PCTF | `pctf/06_New_Feature_PCTF_prompt.md` |
 | 선행 | REFACTORING·A-01 (`28be9e9` 기준) |
@@ -20,7 +20,25 @@
 4. **산출물**: Trend CSV/UI, File DB, Feature TC 5건, `report/04_New_Feature_report.md`
 5. **문서**: `docs/11_New_Feature_test_results.md` (TC·회귀 실측)
 6. **검증**: Tests **41**, Failures **0**, JaCoCo line **90.4%**
-7. **PR**: `new_feature` → `A-01` (gh 미인증 — 수동 생성 안내)
+7. **PR**: `new_feature` → `A-01` — **미생성** (`gh auth login` 필요)
+8. **후속**: `docs/11`·`86b4775` 작업규칙 8단계 push, prompting 갱신
+
+---
+
+## 1.1. PR·gh 후속 (2026-05-22)
+
+| 항목 | 결과 |
+|------|------|
+| `gh auth status` | **미로그인** — `gh pr create` 불가 |
+| `origin/new_feature` | `86b4775` (A-01 대비 **8 commits**) |
+| Open PR `new_feature`→`A-01` | **0건** (GitHub 확인) |
+| PR 수동 생성 URL | https://github.com/antihu99/FeedBackAnalyzer_01/compare/A-01...new_feature |
+
+```bash
+gh auth login
+gh pr create --base A-01 --head new_feature \
+  --title "New_Feature: Trend visualization and File DB keywords (FR-17~18)"
+```
 
 ---
 
@@ -95,6 +113,8 @@ F (Format)
 | 3 | `e690d9c` | FEATURE step3: add Trend and Keyword File DB tests |
 | 4 | `852fc4c` | FEATURE step4: Trend visualization and File DB keywords |
 | 5 | `b7e4d54` | FEATURE step5: report/04_New_Feature_report.md |
+| 6 | `f3e8518` | FEATURE: docs/11 test results and prompting |
+| 7 | `86b4775` | docs: 작업규칙 8단계 REVIEW(QA) |
 
 ---
 
