@@ -203,6 +203,21 @@ gh pr create --base A-01 --head QA   # gh auth login 필요
 git checkout A-01 && git pull origin A-01 && git merge QA && git push origin A-01
 ```
 
+## 릴리스 PR (A-01 → main)
+
+| 해시 | 메시지 | push |
+|------|--------|------|
+| `8cdb538` | docs: A-01 to main release PR body (PR #3, HEAD afcbc53) | `git push origin A-01` |
+
+```bash
+# gh auth login 후
+gh pr edit 3 --title "Release: A-01 → main (SPEC through QA)" --body-file docs/pr3_body_release_body.md
+# 또는
+gh pr create --base main --head A-01 --title "Release: A-01 → main (SPEC through QA)" --body-file docs/pr3_body_release_body.md
+```
+
+- 템플릿: `docs/pr3_body_update.md` (상세), `docs/pr3_body_release_body.md` (gh `--body-file`용)
+
 ---
 
 ## prompting 동기화 (2026-05-22)
