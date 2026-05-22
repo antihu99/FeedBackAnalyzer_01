@@ -12,8 +12,9 @@
 | 작업 디렉터리 | `d:\Vs_workplace\Java_project\FeedBackAnalyzer_01` |
 | **현재 브랜치** | **`new_feature`** |
 | **A-01 HEAD** | **`28be9e9`** (report 번호 재매김 등) |
-| **new_feature HEAD** | **`86b4775`** (작업규칙 8단계) |
-| **gh 인증** | **미로그인** — PR 생성 대기 |
+| **new_feature HEAD** | **`bc1724f`** (= A-01) |
+| **A-01 HEAD** | **`bc1724f`** (`new_feature` Fast-forward 머지) |
+| **gh 인증** | **미로그인** — `gh pr edit` 수동 필요 |
 | **REFACTORING HEAD** | **`2ccbe96`** |
 | 원격 | `https://github.com/antihu99/FeedBackAnalyzer_01.git` |
 | SPEC | `a306870` → `9b03001` |
@@ -158,7 +159,13 @@ git push -u origin REFACTORING
 | `f3e8518` | FEATURE: docs/11 test results and prompting | `origin/new_feature` |
 | `86b4775` | docs: 작업규칙 8단계 REVIEW(QA) 단계 추가 | `origin/new_feature` |
 
-**PR `new_feature` → `A-01`**: 미생성 — `gh auth login` 후 `gh pr create` 또는 [compare URL](https://github.com/antihu99/FeedBackAnalyzer_01/compare/A-01...new_feature)
+**머지**: `git checkout A-01 && git merge new_feature` → Fast-forward `28be9e9`..`bc1724f`, `git push origin A-01`  
+**PR #3** (`A-01`→`main`): HEAD 자동 반영 `bc1724f` · 제목·본문 갱신 → `docs/pr3_body_update.md` 참고
+
+```bash
+git checkout A-01 && git merge new_feature && git push origin A-01
+gh pr edit 3 --title "Release: A-01 → main (SPEC + RED + GREEN + REFACTORING + New_Feature)" --body-file docs/pr3_body_update.md
+```
 
 ```bash
 gh auth status
