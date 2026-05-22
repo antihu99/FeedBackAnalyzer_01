@@ -248,9 +248,9 @@ main (3a526ea — 초기 과제)
 |----------|------|---------------|-----------|
 | P0 | `A-01` → `main` 머지 | §9.2, PR #6 | `gh auth login` → `docs/pr3_body_release_body.md` |
 | P1 | FR-11 Logger level UI | 작업규칙 3③, §6 GREEN | `Logger` + `index.html` PCTF 또는 GREEN 후속 |
-| P2 | `02_work_scenario` §9.1 파일명 | `05_retrospective` 표기 | `06_retrospective`로 시나리오 문서 정합 수정 |
-| P2 | `06_todo_list` 마일스톤 상태 | M0~M6 ⬜ | 본 검증 결과로 체크박스 갱신 |
-| P3 | `GIT_prompt` HEAD 문구 | 구버전 `bc1724f` | `50968bb` 반영 |
+| P2 | `02_work_scenario` §9.1 파일명 | `05_retrospective` 표기 | ✅ `06`으로 `02`·`03` 갱신 (2026-05-22) |
+| P2 | `06_todo_list` 마일스톤 상태 | M0~M6 ⬜ | ✅ 본 검증 결과 반영 |
+| P3 | `GIT_prompt` HEAD 문구 | 구버전 | ✅ `eee9f2b` 반영 |
 | P3 | E2E §3.4 formal 기록 | 시나리오 0 | `docs/11` 확장 또는 E2E 시트 |
 
 ---

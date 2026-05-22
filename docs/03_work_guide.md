@@ -68,6 +68,12 @@ mvn spring-boot:run
 | `07_RED_test_plan.md` | RED 단계 **TEST_PLAN** (TC PASS/FAIL 명세) |
 | `08_GREEN_test_results.md` | GREEN 단계 **TC 실행 결과** (머지 전 실측) |
 | `09_REFACTOR_SRP_proposal.md` | REFACTORING 5단계 **감정 SRP** Before/After |
+| `10_feature_schema.md` | New_Feature CSV·스키마 |
+| `11_New_Feature_test_results.md` | FR-17~18 TC 실측 |
+| `12_QA_review_outline.md` | QA REVIEW 비교 축·Before `6e88371` |
+| `13_cursor_ai_code_review_report.md` | Cursor AI 코드 리뷰 통합 보고서 |
+| `14_work_flow_verification.md` | 시나리오 대비 진행 검증·업무 흐름 |
+| `pr3_body_update.md` / `pr3_body_release_body.md` | A-01 → `main` 릴리스 PR 본문 |
 
 ### 3.1.0. pctf/ — 단계별 PCTF (Prompt 입력)
 
@@ -79,6 +85,8 @@ mvn spring-boot:run
 | `03_REFACTORING_step4_naming_PCTF_prompt.md` | 4단계 네이밍·상수 (FR-12~13), step4 commit |
 | `04_REFACTORING_step5_sentiment_SRP_PCTF_prompt.md` | 5단계 SentimentClassifier·SRP (FR-14), `docs/09` 부록 |
 | `05_REFACTORING_step6_controller_SRP_PCTF_prompt.md` | 6단계 Controller·패키지 (FR-15~16), `report/03` |
+| `06_New_Feature_PCTF_prompt.md` | FR-17~18, `report/04`, step1~5 commit |
+| `07_QA_REVIEW_PCTF_prompt.md` | `docs/12`, `report/05`, `report/06` |
 
 ### 3.1.1. 프로젝트 루트 — Agent·TDD 규칙 (YAML)
 
@@ -96,7 +104,10 @@ mvn spring-boot:run
 |------|----------------------|
 | 예시 | `01_RED_coverage_report.md` |
 | 예시 | `02_GREEN_bugfix_report.md` |
-| 예시 | `05_retrospective.md` |
+| `05_REVIEW_refactoring_report.md` | QA — 리팩토링 Before/After (`6e88371`) |
+| `06_retrospective.md` | 회고 4문항 (`project_purpose` §6.1-8) |
+
+> **번호 안내**: `05` = QA REVIEW, `06` = 회고. (구 가이드의 `05_retrospective` 표기는 **`06`** 으로 변경)
 
 ### 3.3. prompting/ — Agent 기록
 
@@ -105,8 +116,10 @@ mvn spring-boot:run
 | `00_SPEC_prompt.md` | SPEC 단계 Agent 대화·산출물 |
 | `01_RED_prompt.md` | RED 단계 Agent 대화·PCTF·JUnit |
 | `02_GREEN_prompt.md` | GREEN 단계 Agent 대화·FR-09 수정 |
-| `03_REFACTORING_prompt.md` | REFACTORING step4~5 Agent 대화·rename·SRP |
-| `User_prompt.md` | 사용자 프롬프트 **표** (#1~#41) + 요약 |
+| `03_REFACTORING_prompt.md` | REFACTORING step4~6 Agent 대화·rename·SRP |
+| `04_New_Feature_prompt.md` | New_Feature PCTF 06 Agent 기록 |
+| `05_QA_REVIEW_prompt.md` | QA REVIEW·회고 Agent 기록 |
+| `User_prompt.md` | 사용자 프롬프트 **표** (#1~#58) + 요약 |
 | `GIT_prompt.md` | git 명령·PR·커밋 이력 (중복 제거) |
 
 > 단계 종료·머지 후 `User_prompt.md`·`GIT_prompt.md`·해당 `{NN}_prompt.md` 를 **동기화**한다.
@@ -263,14 +276,20 @@ git push -u origin SPEC
 
 ### New_Feature
 
-- [ ] `test_feedback_trend.csv`
-- [ ] Trend UI + File DB
-- [ ] `report/04_New_Feature_report.md`
+- [x] `test_feedback_trend.csv`
+- [x] Trend UI + File DB
+- [x] `report/04_New_Feature_report.md`
 
-### 회고
+### QA REVIEW (`작업규칙.TXT` §8)
 
-- [ ] `report/05_retrospective.md`
-- [ ] PR A-01 → main
+- [x] `docs/12_QA_review_outline.md`
+- [x] `report/05_REVIEW_refactoring_report.md`
+- [x] `QA` → `A-01` 머지
+
+### 회고·릴리스
+
+- [x] `report/06_retrospective.md`
+- [ ] PR `A-01` → `main` (`docs/pr3_body_release_body.md`, `gh auth login`)
 
 ---
 

@@ -1,7 +1,7 @@
 # Feedback Analyzer — 작업 시나리오
 
 > **근거**: `00_prd.md`, `01_analysis.md`, `project_purpose.md`, `README.md`, `작업규칙.TXT`  
-> **작성일**: 2026-05-21
+> **작성일**: 2026-05-21 · **갱신**: 2026-05-22 (QA 8단계·회고 `06`·`14` 검증 반영)
 
 ---
 
@@ -20,19 +20,21 @@ flowchart LR
     S2 --> S3[GREEN]
     S3 --> S4[REFACTORING 4~6]
     S4 --> S5[New_Feature]
-    S5 --> S6[회고]
-    S6 --> R[A-01 to main]
+    S5 --> S6[QA REVIEW]
+    S6 --> S7[회고]
+    S7 --> R[A-01 to main]
 ```
 
-| 단계 | 브랜치 | PR Base | 예상 |
-|------|--------|---------|------|
-| 0 | — | — | 30m |
-| 1 | SPEC | A-01 | 1h |
-| 2 | RED | A-01 | 2h |
-| 3 | GREEN | A-01 | 1.5h |
-| 4~6 | REFACTORING | A-01 | 3.5h |
-| 7 | New_Feature | A-01 | 3h |
-| 8 | — | main | 2h |
+| 단계 | 작업규칙 | 브랜치 | PR Base | 예상 |
+|------|----------|--------|---------|------|
+| 0 | — | — | — | 30m |
+| 1 | SPEC | `SPEC` | A-01 | 1h |
+| 2 | RED | `RED` | A-01 | 2h |
+| 3 | GREEN | `GREEN` | A-01 | 1.5h |
+| 4~6 | REFACTORING | `REFACTORING` | A-01 | 3.5h |
+| 7 | New_Feature | `new_feature` | A-01 | 3h |
+| 8 | REVIEW | `QA` | A-01 | 2h |
+| 9 | 회고·릴리스 | — | `main` | 2h |
 
 ---
 
@@ -151,9 +153,13 @@ docs/   report/   prompting/
 
 ### DoD
 
-- [ ] FR-09~11 AC 충족
-- [ ] RED TC 전부 통과
-- [ ] 커버리지 90% 유지
+- [x] **FR-09** 중립 필터·분석 일치 (PCTF 02 범위)
+- [ ] **FR-10** multiline — PCTF 02 미수행 시 **New_Feature** UI(`textarea`) 또는 GREEN 후속
+- [ ] **FR-11** Logger level UI — 후속
+- [x] RED TC 전부 통과 (GREEN 종료 시)
+- [x] 커버리지 90% 유지
+
+> **실측 (A-01)**: `report/02` — GREEN은 FR-09 중심; FR-10은 `852fc4c`(FEATURE step4)에서 반영됨.
 
 ---
 
@@ -219,29 +225,66 @@ docs/   report/   prompting/
 
 ---
 
-## 9. 시나리오 8 — 회고·릴리스
+## 9. 시나리오 8 — QA REVIEW (`작업규칙.TXT` 8단계)
 
-### 9.1. 회고 (`project_purpose.md` §6.1-8)
+| 항목 | 내용 |
+|------|------|
+| 브랜치 | `QA` (from `A-01`) |
+| PRD | FR-12~16 검증·회귀 (FR-19~21 유지) |
+| 프롬프트 | `@Codebase` 리팩토링 전후 비교, Before/After 코드 |
+| **PCTF** | `pctf/07_QA_REVIEW_PCTF_prompt.md` §★ PROMPT |
 
-`report/05_retrospective.md`:
+### 실행 순서
+
+| 순서 | 작업 | 산출물 |
+|------|------|--------|
+| 1 | `git checkout QA` (또는 `-b QA A-01`) | — |
+| 2 | `mvn clean test`, JaCoCo ≥ 90% | QA-00 baseline |
+| 3 | 개요·비교 축 | `docs/12_QA_review_outline.md` |
+| 4 | Before `6e88371` vs After 코드 보고서 | `report/05_REVIEW_refactoring_report.md` |
+| 5 | (선택) PR | `QA` → `A-01` |
+| 6 | `git merge QA` on `A-01` | 통합 브랜치 반영 |
+
+### DoD
+
+- [x] Before/After 코드 블록 (FR-12~16)
+- [x] `mvn clean test` 0 failures, JaCoCo ≥ 90%
+- [x] HTTP 5 path 회귀 (`FeedbackControllerWebTest`)
+- [x] 프로덕션 코드 변경 없음(문서·report만)
+
+**추가 산출물**: `docs/13_cursor_ai_code_review_report.md`, `docs/14_work_flow_verification.md`
+
+---
+
+## 10. 시나리오 9 — 회고·릴리스
+
+### 10.1. 회고 (`project_purpose.md` §6.1-8)
+
+`report/06_retrospective.md` *(구 시나리오 `05_retrospective` 표기 → **06**으로 정합)*:
 
 1. 목표 vs 달성도  
 2. AI 활용·한계  
 3. TC가 개선에 미친 영향  
 4. 클린코드·리팩토링 소감  
 
-### 9.2. 최종 PR
+| 산출물 | 경로 |
+|--------|------|
+| 회고 보고서 | `report/06_retrospective.md` |
+| Agent 기록 | `prompting/05_QA_REVIEW_prompt.md` |
+
+### 10.2. 최종 PR
 
 ```text
 Head: A-01  →  Base: main
-제목: Release — Feedback Analyzer
+제목: Release: A-01 → main (SPEC + RED + GREEN + REFACTORING + New_Feature + QA)
 ```
 
+- 본문: `docs/pr3_body_release_body.md` (`gh pr edit 3 --body-file …`)
 - 기능 브랜치 **삭제하지 않음**
 
 ---
 
-## 10. PR·브랜치 매트릭스
+## 11. PR·브랜치 매트릭스
 
 | # | Head | Base | 포함 PRD |
 |---|------|------|----------|
@@ -250,11 +293,12 @@ Head: A-01  →  Base: main
 | 3 | GREEN | A-01 | FR-09~11 |
 | 4 | REFACTORING | A-01 | FR-12~16 |
 | 5 | New_Feature | A-01 | FR-17~18 |
-| 6 | A-01 | main | 전체 |
+| 6 | QA | A-01 | FR-12~16 검증·회고 문서 |
+| 7 | A-01 | main | 전체 |
 
 ---
 
-## 11. 리스크 시나리오
+## 12. 리스크 시나리오
 
 | 상황 | 대응 |
 |------|------|
@@ -265,10 +309,13 @@ Head: A-01  →  Base: main
 
 ---
 
-## 12. 관련 문서
+## 13. 관련 문서
 
 | 문서 | 경로 |
 |------|------|
 | PRD | `docs/00_prd.md` |
 | 분석 | `docs/01_analysis.md` |
 | 작업 안내 | `docs/03_work_guide.md` |
+| QA 개요 | `docs/12_QA_review_outline.md` |
+| 시나리오 검증 | `docs/14_work_flow_verification.md` |
+| 작업규칙 8단계 | `작업규칙.TXT` §8, `pctf/07_QA_REVIEW_PCTF_prompt.md` |

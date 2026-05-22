@@ -10,10 +10,11 @@
 | 항목 | 내용 |
 |------|------|
 | 작업 디렉터리 | `d:\Vs_workplace\Java_project\FeedBackAnalyzer_01` |
-| **현재 브랜치** | **`QA`** |
-| **QA HEAD** | step5 후 갱신 (`71f241f` + 회고) |
-| **A-01 HEAD** | `bc1724f` + QA 문서 머지 예정 |
-| **new_feature HEAD** | **`bc1724f`** |
+| **현재 브랜치** | **`A-01`** |
+| **A-01 HEAD** | **`eee9f2b`** (docs/14 시나리오 정합 + `50968bb` docs/13) |
+| **QA HEAD** | `afcbc53` (A-01에 머지됨) |
+| **new_feature HEAD** | `bc1724f` (= A-01 이력) |
+| **GREEN baseline (Before)** | `6e88371` |
 | **gh 인증** | **미로그인** — `gh pr edit` 수동 필요 |
 | **REFACTORING HEAD** | **`2ccbe96`** |
 | 원격 | `https://github.com/antihu99/FeedBackAnalyzer_01.git` |

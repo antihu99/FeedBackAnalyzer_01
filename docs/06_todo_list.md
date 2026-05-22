@@ -1,7 +1,7 @@
 # To-Do 리스트 — FeedBack Analyzer (Java)
 
 > **근거**: `docs/00_prd.md`, `docs/01_analysis.md`, `docs/02_work_scenario.md`, `docs/03_work_guide.md`, `docs/04_mom_test.md`, `docs/05_code_smell.md`, `.cursorrules`, `tdd_rules.yaml`  
-> **작성일**: 2026-05-21  
+> **작성일**: 2026-05-21 · **갱신**: 2026-05-22 (`docs/14` 검증 반영)  
 > **규칙**: 코드 작성 없음 — 작업 목록·완료 기준만 정의
 
 ---
@@ -10,27 +10,28 @@
 
 | 상태 | 작업 설명 | 연관 PRD | 완료 기준 (누가 · 무엇을 · 통과 조건) |
 |------|-----------|----------|--------------------------------------|
-| [ ] | **RED**: `TextAnalyzerTest` 작성 — 긍정/부정/중립·카테고리·빈 목록 | FR-19, FR-04, FR-05 | **개발자**가 TC 실행 시 의도된 실패/통과가 문서화됨; `mvn test` 리포트에 클래스 존재 |
-| [ ] | **RED**: `FiltersTest` 작성 — 감정·카테고리·복합 필터, **중립 TC-NEUTRAL-01** | FR-19, FR-06, FR-09 | **개발자**가 `중립` 필터 TC 실행; baseline에서 실패 시 `report/00_RED`에 기록 |
-| [ ] | **RED**: `FileHandlerTest` 작성 | FR-19 | **개발자**가 `save`/`saveResult` TC Green 또는 실패 사유 문서화 |
-| [ ] | **RED**: JaCoCo 설정 + line coverage **≥ 90%** | FR-20, NFR-04 | **개발자**가 `mvn test jacoco:report` 후 `target/site/jacoco`에서 `com.example.demo` ≥ 90% 스크린/수치 제출 |
-| [ ] | **RED**: `report/01_RED_coverage_report.md` 작성 | FR-20 | **개발자**가 미통과 TC 목록·커버리지 % 기재; **리뷰어** 확인 |
-| [ ] | **RED** 브랜치 PR → `A-01` 머지 | PRD §9 | **개발자** PR 생성; **리뷰어** Approve |
-| [ ] | **GREEN**: 감정 판별 **단일 규칙**으로 `TextAnalyzer`·`Filters` 통합 | FR-09, FR-14 | **개발자**가 TC-NEUTRAL-01·TC-NEUTRAL-02 **통과**; 동일 문장 분석·필터 감정 일치 |
-| [ ] | **GREEN**: `index.html` multiline 입력·표시·서버 수신 일관 | FR-10 | **개발자**가 줄바꿈 포함 텍스트 E2E 입력; **QA/본인** 화면·재조회 시 문자열 유지 확인 |
-| [ ] | **GREEN**: 로그 level(warning/error) UI on/off + 페이지 표시 | FR-11 | **개발자**가 토글 시 해당 level만 목록 표시; error 기본 표시 정책 README 또는 PR 본문 명시 |
-| [ ] | **GREEN**: `mvn test` **전체 통과** + 커버리지 90% 유지 | FR-21, FR-20 | **개발자** CI/로컬 전체 Green; JaCoCo 재측정 |
-| [ ] | **GREEN**: `report/02_GREEN_bugfix_report.md` + PR → `A-01` | FR-09~11 | **리뷰어** 버그 3건 AC 서명 |
-| [ ] | **REFACTORING**: `fil`/`sent`/`kw`/`fil_data` 도메인 네이밍 개선 | FR-12 | **개발자**가 public 메서드 rename 완료; **리뷰어**가 diff에서 구 API URL 불변 확인 |
-| [ ] | **REFACTORING**: `Constants` → enum/설정 클래스, 키워드 중복 제거 | FR-13 | **개발자**가 카테고리 1개 추가 시 수정 파일 ≤ 2개(목표) 또는 PRD 예외 문서화 |
-| [ ] | **REFACTORING**: `FeedbackController` 비즈니스 로직 → Service, 패키지 분리 | FR-15, FR-16 | **개발자**가 `controller`/`service`/`model`/`config` 구조; Controller에 CSV 파싱·집계 로직 없음; **테스트 Green** |
-| [ ] | **REFACTORING**: PR → `A-01` + `report/03_REFACTORING_report.md` | FR-12~16 | **리뷰어** SRP·OCP 체크리스트 통과 |
-| [ ] | **New_Feature**: `test_feedback_trend.csv` + Trend 시각화 | FR-17 | **개발자**가 리소스 추가·UI 차트 표시; 빈/미존재 시 안내 메시지 TC 통과 |
-| [ ] | **New_Feature**: File DB 감정·키워드 CRUD·재기동 유지 | FR-18 | **개발자**가 키워드 변경 후 재시작해도 설정 유지 TC 통과 |
-| [ ] | **New_Feature**: PR → `A-01` + `report/04_New_Feature_report.md` | FR-17~18 | **리뷰어** 기능 AC 확인 |
-| [ ] | **Baseline E2E**: FR-01~08 시나리오 A~C 통과 | FR-01~08, PRD §10 | **개발자**가 `02_work_scenario.md` §3.4 체크리스트 전항목 통과 기록 |
-| [ ] | **릴리스 PR**: `A-01` → `main` | PRD §9, §10 | **개발자** PR; **강사/리뷰어** 최종 Approve; 기능 브랜치 미삭제 확인 |
-| [ ] | **회고**: `report/05_retrospective.md` + 팀 발표 | `project_purpose.md` §6.1-8 | **팀** 4개 질문 답변 완료; 발표 일정 충족 |
+| [x] | **RED**: `TextAnalyzerTest` 작성 — 긍정/부정/중립·카테고리·빈 목록 | FR-19, FR-04, FR-05 | `e07ca6b`, `report/01` |
+| [x] | **RED**: `FiltersTest` 작성 — **TC-NEUTRAL-01/02** (RED 의도 실패) | FR-19, FR-06, FR-09 | `07`, GREEN에서 PASS |
+| [x] | **RED**: `FileHandlerTest` 작성 | FR-19 | Green |
+| [x] | **RED**: JaCoCo **≥ 90%** | FR-20 | 90.9% → 90.4% 유지 |
+| [x] | **RED**: `report/01_RED_coverage_report.md` | FR-20 | 완료 |
+| [x] | **RED** 브랜치 → `A-01` 머지 | PRD §9 | PR #2, merge |
+| [x] | **GREEN**: FR-09 감정 규칙 통합 (`Filters`↔`TextAnalyzer`) | FR-09 | `6e88371`, TC-NEUTRAL PASS |
+| [x] | **GREEN/Feature**: `index.html` multiline (`textarea`) | FR-10 | `852fc4c` (New_Feature UI) |
+| [ ] | **GREEN**: 로그 level UI | FR-11 | 미구현 — 후속 |
+| [x] | **GREEN**: `mvn test` Green + 90% | FR-21, FR-20 | 41 tests @ A-01 |
+| [x] | **GREEN**: `report/02` + → `A-01` | FR-09 | PR #4 MERGED |
+| [x] | **REFACTORING**: FR-12 네이밍 | FR-12 | step4 `2d81f59` |
+| [x] | **REFACTORING**: FR-13 상수·enum | FR-13 | `Sentiment`, dedupe |
+| [x] | **REFACTORING**: FR-14 `SentimentClassifier` | FR-14 | step5 |
+| [x] | **REFACTORING**: FR-15~16 Service·패키지 | FR-15, FR-16 | step6 `0c23667` |
+| [x] | **REFACTORING**: `report/03` + → `A-01` | FR-12~16 | A-01 반영 |
+| [x] | **New_Feature**: Trend + File DB | FR-17~18 | `bc1724f`, `report/04` |
+| [x] | **QA REVIEW**: Before/After + `docs/12`, `report/05` | 작업규칙 §8 | `afcbc53` |
+| [x] | **회고**: `report/06_retrospective.md` | §6.1-8 | 문서 완료 |
+| [ ] | **Baseline E2E**: §3.4 formal 기록 | FR-01~08 | `11`·수동 smoke |
+| [ ] | **릴리스 PR**: `A-01` → `main` | PRD §9 | `pr3_body_*`, `gh auth` |
+| [ ] | **팀 발표** | 회고 | 일정 별도 |
 
 ---
 
@@ -47,8 +48,8 @@
 | [ ] | `src/main/resources/test_feedbacks.csv` 샘플 추가 | FR-03, README | **개발자** README 업로드 예시로 E2E 재현 |
 | [ ] | `Feedback`에 `sentiment`/`category` 분석 후 저장 | FR-04~05 | **개발자** 단위 테스트에서 Feedback 필드 non-null 검증 |
 | [ ] | `FileHandler` Lava Flow 제거 — 연동 또는 삭제 | FR-03 | **리뷰어** 미사용 주입/데드 코드 없음 확인 |
-| [x] | `prompting/` SPEC 대화·`User_prompt.md`·`GIT_prompt.md` | `03_work_guide.md` §3.3 | **Agent** SPEC 00~02 완료; RED~New_Feature 각 1파일 **추가 필요** |
-| [ ] | SPEC PR #1 (`SPEC`→`A-01`) 머지 및 `A-01`에 최신 docs 동기화 | PRD §9 | **리뷰어** Merge; **개발자** `A-01` pull 후 docs 00~06 존재 확인 |
+| [x] | `prompting/` 00~05 + `User_prompt`·`GIT_prompt` | §3.3 | SPEC~QA 완료 (#58) |
+| [x] | SPEC·docs 00~14 on `A-01` | PRD §9 | `eee9f2b` HEAD |
 
 ---
 
@@ -70,12 +71,12 @@
 
 | 상태 | 문제 설명 | 발생 원인 | 해결 방향 |
 |------|-----------|-----------|-----------|
-| [ ] | 감정 규칙 이중화 — 분석·필터 결과 불일치 | `TextAnalyzer` vs `Filters.S_KEYWORDS` vs `Constants` | `05_code_smell.md` 사례1 → SentimentClassifier 단일화 (FR-09/14) |
-| [ ] | God Controller — CSV·상태·다운로드 혼재 | 초기 레거시 단일 책임 | `05_code_smell.md` 사례2 → Service 분리 (FR-15/16) |
-| [ ] | 키워드 Shotgun Surgery·가짜 도메인 | `Constants`+`UIComponents`+`Filters` 분산 | `05_code_smell.md` 사례3 → File DB/설정 (FR-18) |
-| [ ] | `Session` static 전역 상태 | HTTP 세션 미사용 설계 | REFACTORING 시 요청/세션 스코프 상태 |
-| [ ] | `Logger` static + `@Service` 혼재 | print 기반 로깅 | FR-11 UI 연동 + SLF4J 검토 (v2) |
-| [ ] | 테스트 `contextLoads` only | RED 미착수 | FR-19~21, `tdd_rules.yaml` |
+| [x] | 감정 규칙 이중화 | 사례1 | `SentimentClassifier` (FR-09/14) |
+| [x] | God Controller | 사례2 | `FeedbackService` (FR-15/16) |
+| [x] | 키워드 Shotgun Surgery | 사례3 | File DB (FR-18) |
+| [ ] | `Session` static 전역 상태 | HTTP 세션 미사용 | v2 백로그 |
+| [ ] | `Logger` static + `@Service` 혼재 | FR-11 미완 | v2 |
+| [x] | 테스트 `contextLoads` only | RED 완료 | 41 tests |
 | [ ] | README vs 실제 구조·파일명 불일치 | 초기 문서 drift | Phase 6 README 갱신 (`03_work_guide.md` §10) |
 | [ ] | docs 구버전 파일 잔존 (`analysis.md`, `01_work_scenario.md` 등) | 폴더 재구성 | **개발자** 중복 파일 정리 PR (문서만) |
 
@@ -99,6 +100,8 @@
 | [x] | `docs/06_todo_list.md` | 2026-05-21 | Phase 6 |
 | [x] | `prompting/00_SPEC_prompt.md`, `User_prompt.md`, `GIT_prompt.md` | 2026-05-21 | `작업규칙.TXT` §prompting |
 | [x] | `report/00_SPEC_phase_report.md` | 2026-05-21 | SPEC 결과 보고서 |
+| [x] | RED~New_Feature·QA report `01`~`06` | 2026-05-22 | `A-01` 통합 |
+| [x] | `docs/12`~`14` QA·리뷰·흐름 검증 | 2026-05-22 | `eee9f2b` |
 
 ---
 
@@ -114,7 +117,7 @@
 | 4 | **커버리지** | JaCoCo line coverage **≥ 90%** (`tdd_rules.yaml` `coverage_minimum_percent`) |
 | 5 | **Dual-Track** | RED에서 추가한 TC가 GREEN/REFACTOR 후에도 Green (테스트 삭제·@Disabled 없음) |
 | 6 | **산출물** | 해당 단계 `report/{NN}_*.md` 존재 |
-| 7 | **README** | 설치·실행·CSV·docs 링크(`00_prd`~`06_todo`) 최신 |
+| 7 | **README** | 설치·실행·CSV·docs 링크(`00_prd`~`14`) 최신 |
 | 8 | **Git 위생** | 커밋에 `*.class`, `target/` 미포함 |
 | 9 | **문서 정합** | `01_analysis.md` P0 항목 해소 또는 Known Issue 명시 |
 | 10 | **브랜치** | 기능 브랜치 → `A-01` 머지 완료 후 릴리스 PR |
@@ -125,13 +128,14 @@
 
 | 마일스톤 | 포함 항목 (PRD) | 목표일 | 상태 | 완료 담당 |
 |----------|-----------------|--------|------|-----------|
-| M0 — 환경·문서 기반 | SPEC 문서, Mom Test, code_smell, `.cursorrules`, `tdd_rules.yaml`, `06_todo_list` | 2026-05-21 | 🟡 진행 중 | 개발자 (docs 푸시·PR 머지 남음) |
-| M1 — RED | FR-19, FR-20, FR-21 | +2일 | ⬜ 대기 | 개발자 + 리뷰어 |
-| M2 — GREEN | FR-09, FR-10, FR-11 | +1.5일 | ⬜ 대기 | 개발자 |
-| M3 — REFACTORING | FR-12, FR-13, FR-14, FR-15, FR-16 | +3.5일 | ⬜ 대기 | 개발자 + 리뷰어 |
-| M4 — New Feature | FR-17, FR-18 | +3일 | ⬜ 대기 | 개발자 |
-| M5 — v1.0 Release | FR-01~08 E2E, PRD §10 전항, `A-01`→`main` | +1일 | ⬜ 대기 | 리뷰어/강사 |
-| M6 — 회고·발표 | `report/05_retrospective.md`, 팀 리뷰 | +2일 | ⬜ 대기 | 팀 전원 |
+| M0 — 환경·문서 기반 | SPEC, Mom Test, docs 00~06 | 2026-05-21 | ✅ 완료 | `A-01` |
+| M1 — RED | FR-19~21, JaCoCo ≥90% | 2026-05-22 | ✅ 완료 | `e07ca6b` |
+| M2 — GREEN | FR-09 (+ FR-10 NF, FR-11 ⬜) | 2026-05-22 | 🟡 부분 | `6e88371` |
+| M3 — REFACTORING | FR-12~16 | 2026-05-22 | ✅ 완료 | step4~6 |
+| M4 — New Feature | FR-17~18 | 2026-05-22 | ✅ 완료 | `bc1724f` |
+| M5 — QA·문서 | `12`~`14`, `report/05` | 2026-05-22 | ✅ 완료 | `afcbc53` |
+| M6 — v1.0 Release | `A-01`→`main` | — | 🟡 진행 중 | PR #3 본문 준비 |
+| M7 — 회고·발표 | `report/06_retrospective.md` | 2026-05-22 | 🟡 문서 완료 | 팀 발표 대기 |
 
 ---
 
@@ -144,4 +148,6 @@
 | `docs/02_work_scenario.md` | E2E·브랜치 순서 |
 | `docs/03_work_guide.md` | Git·산출물 |
 | `docs/06_todo_list.md` | 본 To-Do |
+| `docs/12`~`14` | QA·리뷰·흐름 검증 |
+| `docs/14_work_flow_verification.md` | 시나리오 준수 검증 |
 | `tdd_rules.yaml` | 트랙별 merge 조건 |

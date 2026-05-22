@@ -545,7 +545,7 @@ F (Format)
 
 | 항목 | 이유 |
 |------|------|
-| `report/05_retrospective.md` | 시나리오 9 (회고) |
+| `report/06_retrospective.md` | 시나리오 9 (회고) — `05`는 QA REVIEW |
 | A-01 → main 릴리스 PR | 시나리오 9.2 |
 | `.gitignore`에 `target/` 추가 | 별도 housekeeping (권장만 문서화) |
 
