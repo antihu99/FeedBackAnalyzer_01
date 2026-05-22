@@ -206,7 +206,7 @@ Filters.fil(sFilter, kFilter)
 | 5 | FiltersTest B类 추가 | TC-NEUTRAL-01/02 | `mvn test` failures=**2** |
 | 6 | FileHandlerTest FH-01~03 | `FileHandlerTest.java` | failures=2 유지 |
 | 7 | C类 보강 (필요 시) | COV-* | jacoco ≥ 90% |
-| 8 | RED 리포트 | `report/00_RED_coverage_report.md` | FR-20 |
+| 8 | RED 리포트 | `report/01_RED_coverage_report.md` | FR-20 |
 
 > 구현 Agent: `pctf/01_RED_PCTF_prompt.md`
 

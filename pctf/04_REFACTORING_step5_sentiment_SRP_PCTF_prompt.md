@@ -42,7 +42,7 @@
 | **신규** | `SentimentClassifier.java` (또는 `SentimentService`) — `classify(String text): String` |
 | `TextAnalyzer.java` | 감정·키워드 분석에서 감정 부분 위임, 긴 메서드 추출 |
 | `Filters.java` | `filterFeedbacks` 감정 판정 → Classifier 위임 (`S_KEYWORDS` 감정 분기 제거) |
-| `docs/09_REFACTOR_SRP_proposal.md` **또는** `report/02_REFACTORING_report.md` §부록 | SRP 제안·Before/After |
+| `docs/09_REFACTOR_SRP_proposal.md` **또는** `report/03_REFACTORING_report.md` §부록 | SRP 제안·Before/After |
 
 ### 수정 금지 (본 단계)
 

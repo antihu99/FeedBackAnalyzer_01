@@ -23,7 +23,7 @@ tracks:
           - TextAnalyzerTest
           - FiltersTest
           - FileHandlerTest
-      - report: report/00_RED_coverage_report.md
+      - report: report/01_RED_coverage_report.md
 
   GREEN:
     branch: GREEN
@@ -47,7 +47,7 @@ tracks:
     merge_prerequisite:
       - mvn_test: pass
       - jacoco_line_coverage_gte: 90
-      - report: report/01_GREEN_bugfix_report.md
+      - report: report/02_GREEN_bugfix_report.md
 
   REFACTOR:
     branch: REFACTORING
@@ -60,7 +60,7 @@ tracks:
     merge_prerequisite:
       - mvn_test: pass
       - jacoco_line_coverage_gte: 90
-      - report: report/02_REFACTORING_report.md
+      - report: report/03_REFACTORING_report.md
 
   FEATURE:
     branch: New_Feature
@@ -71,7 +71,7 @@ tracks:
     merge_prerequisite:
       - mvn_test: pass
       - jacoco_line_coverage_gte: 90
-      - report: report/03_New_Feature_report.md
+      - report: report/04_New_Feature_report.md
 
 workflow:
   cycle: RED -> GREEN -> REFACTOR -> FEATURE
@@ -179,7 +179,7 @@ refactor_phase_checklist:
 agent_instructions:
   on_RED_branch:
     - Write failing tests before production fix
-    - Document failing test names in report/00_RED_coverage_report.md
+    - Document failing test names in report/01_RED_coverage_report.md
   on_GREEN_branch:
     - Smallest change to pass tests
     - Run mvn test after each fix
@@ -190,10 +190,10 @@ agent_instructions:
     - @Disabled tests without issue link and GREEN follow-up
 
 reports:
-  RED: report/00_RED_coverage_report.md
-  GREEN: report/01_GREEN_bugfix_report.md
-  REFACTOR: report/02_REFACTORING_report.md
-  FEATURE: report/03_New_Feature_report.md
+  RED: report/01_RED_coverage_report.md
+  GREEN: report/02_GREEN_bugfix_report.md
+  REFACTOR: report/03_REFACTORING_report.md
+  FEATURE: report/04_New_Feature_report.md
 
 references:
   cursorrules: .cursorrules

@@ -117,7 +117,7 @@ docs/   report/   prompting/
 | 3 | `TextAnalyzerTest`, `FiltersTest`, `FileHandlerTest` 작성 |
 | 4 | 중립 필터 TC — **의도적 실패 허용** (GREEN 전) |
 | 5 | `mvn test jacoco:report` |
-| 6 | `report/00_RED_coverage_report.md` |
+| 6 | `report/01_RED_coverage_report.md` |
 | 7 | PR RED → A-01 |
 
 ### DoD
@@ -146,7 +146,7 @@ docs/   report/   prompting/
 | 5 | (권장) download, upload 경로 | `FeedbackController` |
 | 6 | `mvn test` 전체 Green | — |
 | 7 | E2E 체크리스트 재실행 | §3.4 |
-| 8 | `report/01_GREEN_bugfix_report.md` | |
+| 8 | `report/02_GREEN_bugfix_report.md` | |
 | 9 | PR GREEN → A-01 | |
 
 ### DoD
@@ -183,11 +183,11 @@ docs/   report/   prompting/
 - 프롬프트: `@FeedbackController.java Service 분리`
 - 패키지: `controller`, `service`, `model`, `config`
 - DoD: FR-15~16, URL 불변
-- **Git**: `REFACTOR step6: Controller SRP…` + `report/02_REFACTORING_report.md` → push
+- **Git**: `REFACTOR step6: Controller SRP…` + `report/03_REFACTORING_report.md` → push
 
 ### 공통 마무리
 
-- `report/02_REFACTORING_report.md`
+- `report/03_REFACTORING_report.md`
 - PR REFACTORING → A-01
 
 ---
@@ -205,7 +205,7 @@ docs/   report/   prompting/
 | 2 | 샘플 CSV·스키마 문서 |
 | 3 | Feature TC |
 | 4 | 구현 |
-| 5 | `report/03_New_Feature_report.md` |
+| 5 | `report/04_New_Feature_report.md` |
 | 6 | PR → A-01 |
 
 ### DoD
@@ -219,7 +219,7 @@ docs/   report/   prompting/
 
 ### 9.1. 회고 (`project_purpose.md` §6.1-8)
 
-`report/04_retrospective.md`:
+`report/05_retrospective.md`:
 
 1. 목표 vs 달성도  
 2. AI 활용·한계  

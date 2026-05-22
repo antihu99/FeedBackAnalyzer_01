@@ -8,7 +8,7 @@
 | 작성 근거 | `docs/07_RED_test_plan.md`, `pctf/02_GREEN_PCTF_prompt.md` |
 | 실행일 | 2026-05-22 |
 | 검증 명령 | `mvn test`, `mvn test jacoco:report` |
-| 상세 리포트 | `report/01_GREEN_bugfix_report.md` |
+| 상세 리포트 | `report/02_GREEN_bugfix_report.md` |
 
 ---
 
@@ -18,7 +18,7 @@
 |------|------|------|
 | 명세 | `07_RED_test_plan.md` | TC ID·Given-When-Then·RED/GREEN **기대** |
 | **본 문서** | `08_GREEN_test_results.md` | GREEN 브랜치에서 **실제 실행 결과** (머지 전 스냅샷) |
-| 요약 리포트 | `report/01_GREEN_bugfix_report.md` | 버그 수정·커버리지·Git 요약 |
+| 요약 리포트 | `report/02_GREEN_bugfix_report.md` | 버그 수정·커버리지·Git 요약 |
 
 ---
 
@@ -160,7 +160,7 @@ TEST_PLAN §8 C类 및 JaCoCo 90% 달성용. GREEN에서도 **전부 PASS**.
 | G-04 | TC-NEUTRAL-02 | **PASS** | (G-03 동일 수정) |
 | G-05 | FH-01 ~ FH-03 | PASS 3/3 | 없음 |
 | G-06 | 전체 + JaCoCo | Failures **0**, 90.8% | 없음 |
-| G-07 | 리포트 | `report/01_GREEN_bugfix_report.md` | — |
+| G-07 | 리포트 | `report/02_GREEN_bugfix_report.md` | — |
 
 ---
 
@@ -218,7 +218,7 @@ TEST_PLAN §8 C类 및 JaCoCo 90% 달성용. GREEN에서도 **전부 PASS**.
 | 문서 | 경로 |
 |------|------|
 | TEST_PLAN | `docs/07_RED_test_plan.md` |
-| RED 실측 | `report/00_RED_coverage_report.md` |
-| GREEN 리포트 | `report/01_GREEN_bugfix_report.md` |
+| RED 실측 | `report/01_RED_coverage_report.md` |
+| GREEN 리포트 | `report/02_GREEN_bugfix_report.md` |
 | GREEN PCTF | `pctf/02_GREEN_PCTF_prompt.md` |
 | PR (머지 전) | #4 `GREEN` → `A-01` |

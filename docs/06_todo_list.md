@@ -14,23 +14,23 @@
 | [ ] | **RED**: `FiltersTest` 작성 — 감정·카테고리·복합 필터, **중립 TC-NEUTRAL-01** | FR-19, FR-06, FR-09 | **개발자**가 `중립` 필터 TC 실행; baseline에서 실패 시 `report/00_RED`에 기록 |
 | [ ] | **RED**: `FileHandlerTest` 작성 | FR-19 | **개발자**가 `save`/`saveResult` TC Green 또는 실패 사유 문서화 |
 | [ ] | **RED**: JaCoCo 설정 + line coverage **≥ 90%** | FR-20, NFR-04 | **개발자**가 `mvn test jacoco:report` 후 `target/site/jacoco`에서 `com.example.demo` ≥ 90% 스크린/수치 제출 |
-| [ ] | **RED**: `report/00_RED_coverage_report.md` 작성 | FR-20 | **개발자**가 미통과 TC 목록·커버리지 % 기재; **리뷰어** 확인 |
+| [ ] | **RED**: `report/01_RED_coverage_report.md` 작성 | FR-20 | **개발자**가 미통과 TC 목록·커버리지 % 기재; **리뷰어** 확인 |
 | [ ] | **RED** 브랜치 PR → `A-01` 머지 | PRD §9 | **개발자** PR 생성; **리뷰어** Approve |
 | [ ] | **GREEN**: 감정 판별 **단일 규칙**으로 `TextAnalyzer`·`Filters` 통합 | FR-09, FR-14 | **개발자**가 TC-NEUTRAL-01·TC-NEUTRAL-02 **통과**; 동일 문장 분석·필터 감정 일치 |
 | [ ] | **GREEN**: `index.html` multiline 입력·표시·서버 수신 일관 | FR-10 | **개발자**가 줄바꿈 포함 텍스트 E2E 입력; **QA/본인** 화면·재조회 시 문자열 유지 확인 |
 | [ ] | **GREEN**: 로그 level(warning/error) UI on/off + 페이지 표시 | FR-11 | **개발자**가 토글 시 해당 level만 목록 표시; error 기본 표시 정책 README 또는 PR 본문 명시 |
 | [ ] | **GREEN**: `mvn test` **전체 통과** + 커버리지 90% 유지 | FR-21, FR-20 | **개발자** CI/로컬 전체 Green; JaCoCo 재측정 |
-| [ ] | **GREEN**: `report/01_GREEN_bugfix_report.md` + PR → `A-01` | FR-09~11 | **리뷰어** 버그 3건 AC 서명 |
+| [ ] | **GREEN**: `report/02_GREEN_bugfix_report.md` + PR → `A-01` | FR-09~11 | **리뷰어** 버그 3건 AC 서명 |
 | [ ] | **REFACTORING**: `fil`/`sent`/`kw`/`fil_data` 도메인 네이밍 개선 | FR-12 | **개발자**가 public 메서드 rename 완료; **리뷰어**가 diff에서 구 API URL 불변 확인 |
 | [ ] | **REFACTORING**: `Constants` → enum/설정 클래스, 키워드 중복 제거 | FR-13 | **개발자**가 카테고리 1개 추가 시 수정 파일 ≤ 2개(목표) 또는 PRD 예외 문서화 |
 | [ ] | **REFACTORING**: `FeedbackController` 비즈니스 로직 → Service, 패키지 분리 | FR-15, FR-16 | **개발자**가 `controller`/`service`/`model`/`config` 구조; Controller에 CSV 파싱·집계 로직 없음; **테스트 Green** |
-| [ ] | **REFACTORING**: PR → `A-01` + `report/02_REFACTORING_report.md` | FR-12~16 | **리뷰어** SRP·OCP 체크리스트 통과 |
+| [ ] | **REFACTORING**: PR → `A-01` + `report/03_REFACTORING_report.md` | FR-12~16 | **리뷰어** SRP·OCP 체크리스트 통과 |
 | [ ] | **New_Feature**: `test_feedback_trend.csv` + Trend 시각화 | FR-17 | **개발자**가 리소스 추가·UI 차트 표시; 빈/미존재 시 안내 메시지 TC 통과 |
 | [ ] | **New_Feature**: File DB 감정·키워드 CRUD·재기동 유지 | FR-18 | **개발자**가 키워드 변경 후 재시작해도 설정 유지 TC 통과 |
-| [ ] | **New_Feature**: PR → `A-01` + `report/03_New_Feature_report.md` | FR-17~18 | **리뷰어** 기능 AC 확인 |
+| [ ] | **New_Feature**: PR → `A-01` + `report/04_New_Feature_report.md` | FR-17~18 | **리뷰어** 기능 AC 확인 |
 | [ ] | **Baseline E2E**: FR-01~08 시나리오 A~C 통과 | FR-01~08, PRD §10 | **개발자**가 `02_work_scenario.md` §3.4 체크리스트 전항목 통과 기록 |
 | [ ] | **릴리스 PR**: `A-01` → `main` | PRD §9, §10 | **개발자** PR; **강사/리뷰어** 최종 Approve; 기능 브랜치 미삭제 확인 |
-| [ ] | **회고**: `report/04_retrospective.md` + 팀 발표 | `project_purpose.md` §6.1-8 | **팀** 4개 질문 답변 완료; 발표 일정 충족 |
+| [ ] | **회고**: `report/05_retrospective.md` + 팀 발표 | `project_purpose.md` §6.1-8 | **팀** 4개 질문 답변 완료; 발표 일정 충족 |
 
 ---
 
@@ -131,7 +131,7 @@
 | M3 — REFACTORING | FR-12, FR-13, FR-14, FR-15, FR-16 | +3.5일 | ⬜ 대기 | 개발자 + 리뷰어 |
 | M4 — New Feature | FR-17, FR-18 | +3일 | ⬜ 대기 | 개발자 |
 | M5 — v1.0 Release | FR-01~08 E2E, PRD §10 전항, `A-01`→`main` | +1일 | ⬜ 대기 | 리뷰어/강사 |
-| M6 — 회고·발표 | `report/04_retrospective.md`, 팀 리뷰 | +2일 | ⬜ 대기 | 팀 전원 |
+| M6 — 회고·발표 | `report/05_retrospective.md`, 팀 리뷰 | +2일 | ⬜ 대기 | 팀 전원 |
 
 ---
 

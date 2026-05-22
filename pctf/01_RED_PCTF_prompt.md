@@ -8,7 +8,7 @@
 | PRD | FR-19, FR-20, FR-21 |
 | **선행 산출물** | **`docs/07_RED_test_plan.md`** (TEST_PLAN) |
 | **선행 PCTF** | `pctf/00_RED_test_plan_PCTF.md` (TEST_PLAN 미존재 시 먼저 실행) |
-| 본 PCTF 산출물 | `pom.xml`, `src/test/**`, `report/00_RED_coverage_report.md` |
+| 본 PCTF 산출물 | `pom.xml`, `src/test/**`, `report/01_RED_coverage_report.md` |
 
 ---
 
@@ -22,7 +22,7 @@ docs/07_RED_test_plan.md (TEST_PLAN)
          │
          ├── pom.xml (JaCoCo)
          ├── src/test/.../*Test.java
-         └── report/00_RED_coverage_report.md
+         └── report/01_RED_coverage_report.md
 ```
 
 ---
@@ -61,7 +61,7 @@ mvn test jacoco:report
 | T-3 | `FiltersTest` FI-01~08 **PASS**, TC-NEUTRAL **FAIL** | §6 |
 | T-4 | `FileHandlerTest` FH-01~03 **PASS** | §7 |
 | T-5 | `mvn test` failures=**2**, jacoco ≥ 90% | §8, §9 |
-| T-6 | `report/00_RED_coverage_report.md` | §10 #8 |
+| T-6 | `report/01_RED_coverage_report.md` | §10 #8 |
 | T-7 | 커밋·PR RED→A-01 | — |
 
 ---
@@ -75,7 +75,7 @@ mvn test jacoco:report
 | `docs/07_RED_test_plan.md` | TEST_PLAN (선행, 변경 최소) |
 | `pom.xml` | JaCoCo |
 | `src/test/java/com/example/demo/*Test.java` | JUnit |
-| `report/00_RED_coverage_report.md` | RED 결과 |
+| `report/01_RED_coverage_report.md` | RED 결과 |
 
 ### DoD
 
@@ -107,7 +107,7 @@ T (Task)
 3. FiltersTest: FI-01~08 PASS (§6.1), TC-NEUTRAL-01/02 FAIL (§6.2)
 4. FileHandlerTest: FH-01~03 (§7)
 5. mvn test → failures=2 확인; jacoco:report ≥90%
-6. report/00_RED_coverage_report.md — TEST_PLAN TC 표 + 실제 PASS/FAIL + jacoco %
+6. report/01_RED_coverage_report.md — TEST_PLAN TC 표 + 실제 PASS/FAIL + jacoco %
 
 F (Format)
 - TEST_PLAN TC ID·메서드명 준수. @Disabled·테스트 삭제 금지.

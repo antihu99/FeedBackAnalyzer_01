@@ -20,7 +20,7 @@ Agent는 **Feedback Analyzer** RED 단계에서 다음을 수행했다.
 2. PCTF: `pctf/00_RED_test_plan_PCTF.md`, `pctf/01_RED_PCTF_prompt.md` (번호·역할 재정리)
 3. TEST_PLAN: `docs/07_RED_test_plan.md` (A类 PASS 19 + B类 FAIL 2)
 4. 구현: JUnit 8종, JaCoCo **90.9%**, `mvn test` Failures **2** (의도적)
-5. 리포트: `report/00_RED_coverage_report.md`
+5. 리포트: `report/01_RED_coverage_report.md`
 6. 원격: 커밋 `e6c9b09`, `e07ca6b` → `origin/RED`, `origin/A-01`
 
 ---
@@ -69,7 +69,7 @@ F (Format)
 
 ### 2.2. PCTF 01 — RED 구현 (본 단계 완료 PROMPT)
 
-**산출물**: `pom.xml`, `src/test/**`, `report/00_RED_coverage_report.md`  
+**산출물**: `pom.xml`, `src/test/**`, `report/01_RED_coverage_report.md`  
 **금지**: 프로덕션 버그 수정, `@Disabled`, B类 테스트 삭제
 
 ```
@@ -90,7 +90,7 @@ T (Task)
 3. FiltersTest: FI-01~08 PASS (§6.1), TC-NEUTRAL-01/02 FAIL (§6.2)
 4. FileHandlerTest: FH-01~03 (§7)
 5. mvn test → failures=2 확인; jacoco:report ≥90%
-6. report/00_RED_coverage_report.md — TEST_PLAN TC 표 + 실제 PASS/FAIL + jacoco %
+6. report/01_RED_coverage_report.md — TEST_PLAN TC 표 + 실제 PASS/FAIL + jacoco %
 
 F (Format)
 - TEST_PLAN TC ID·메서드명 준수. @Disabled·테스트 삭제 금지.
@@ -151,7 +151,7 @@ TextAnalyzer·Filters·FileHandler 각 클래스별 TC 포함.
 | **[PCTF 01 — RED 구현]** 전체 PROMPT 붙여넣기 | JaCoCo, TextAnalyzerTest, FiltersTest, FileHandlerTest, COV-* |
 | `mvn test` | Tests **34**, Failures **2**, Errors **0** |
 | JaCoCo | **90.9%** (`com.example.demo`) |
-| 리포트 | `report/00_RED_coverage_report.md` |
+| 리포트 | `report/01_RED_coverage_report.md` |
 | 프로덕션 | TextAnalyzer, Filters 등 **미수정** |
 
 ### 3.6. Git — RED 반영·머지
@@ -182,7 +182,7 @@ TextAnalyzer·Filters·FileHandler 각 클래스별 TC 포함.
 | 순서 | 해시 | 메시지 | 포함 주요 경로 |
 |------|------|--------|----------------|
 | 1 | `e6c9b09` | Red 단계진행을 위한 준비 | `pctf/00_RED_PCTF_prompt.md` (초안, 이후 재구성) |
-| 2 | `e07ca6b` | RED 단계 진행: TEST_PLAN + JUnit + JaCoCo 90.9% | `docs/07`, `pctf/00`·`01`, `src/test/**`, `pom.xml`, `report/00_RED_coverage_report.md` |
+| 2 | `e07ca6b` | RED 단계 진행: TEST_PLAN + JUnit + JaCoCo 90.9% | `docs/07`, `pctf/00`·`01`, `src/test/**`, `pom.xml`, `report/01_RED_coverage_report.md` |
 
 **머지**: `RED` → `A-01` (Fast-forward, `e07ca6b`)  
 **원격**: `origin/RED`, `origin/A-01` 동기화  
@@ -219,7 +219,7 @@ TextAnalyzer·Filters·FileHandler 각 클래스별 TC 포함.
 
 | 파일 | 역할 |
 |------|------|
-| `00_RED_coverage_report.md` | RED 결과·TC PASS/FAIL·JaCoCo |
+| `01_RED_coverage_report.md` | RED 결과·TC PASS/FAIL·JaCoCo |
 
 ---
 
@@ -234,7 +234,7 @@ docs/00~06, tdd_rules.yaml
 [pctf/00 § PROMPT] ──▶ docs/07_RED_test_plan.md (TEST_PLAN)
          │
          ▼
-[pctf/01 § PROMPT] ──▶ pom.xml + src/test/** + report/00_RED_coverage_report.md
+[pctf/01 § PROMPT] ──▶ pom.xml + src/test/** + report/01_RED_coverage_report.md
          │
          ▼
 mvn test: Failures=2 (TC-NEUTRAL-01/02)  |  JaCoCo ≥ 90%
@@ -263,7 +263,7 @@ GREEN 단계 (프로덕션 FR-09 수정)
 | 사용자 프롬프트 표 | `prompting/User_prompt.md` |
 | Git 명령 | `prompting/GIT_prompt.md` |
 | SPEC 대화 기록 | `prompting/00_SPEC_prompt.md` |
-| RED 커버리지 보고서 | `report/00_RED_coverage_report.md` |
+| RED 커버리지 보고서 | `report/01_RED_coverage_report.md` |
 | TEST_PLAN | `docs/07_RED_test_plan.md` |
 | PCTF 00·01 | `pctf/00_RED_test_plan_PCTF.md`, `pctf/01_RED_PCTF_prompt.md` |
 | GREEN 기록 | `prompting/02_GREEN_prompt.md` |

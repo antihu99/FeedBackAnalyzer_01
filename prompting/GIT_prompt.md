@@ -46,7 +46,7 @@
 | 해시 | 메시지 | push |
 |------|--------|------|
 | `87136db` | GREEN: TC-NEUTRAL-01/02 neutral filter alignment (FR-09) | `origin/GREEN` |
-| `c9b926a` | GREEN: report/01_GREEN_bugfix_report.md | `origin/GREEN` |
+| `c9b926a` | GREEN: report/02_GREEN_bugfix_report.md | `origin/GREEN` |
 | `47a62be` | GREEN: prompting·PCTF 문서화 | `origin/GREEN` |
 | `6e88371` | GREEN: docs/08_GREEN_test_results.md (TC 실행 결과, 머지 전) | `origin/GREEN` |
 
@@ -86,7 +86,7 @@ git checkout A-01 && git merge RED && git push origin A-01
 # --- GREEN ---
 git checkout GREEN
 git commit -m "GREEN: TC-NEUTRAL-01/02 neutral filter alignment (FR-09)"
-git commit -m "GREEN: report/01_GREEN_bugfix_report.md"
+git commit -m "GREEN: report/02_GREEN_bugfix_report.md"
 git commit -m "GREEN: prompting·PCTF 문서화"
 git commit -m "GREEN: docs/08_GREEN_test_results.md (TC 실행 결과, 머지 전)"
 git push origin GREEN
@@ -132,7 +132,7 @@ PR #3 갱신: REST API `PATCH /pulls/3` — 제목·본문 GREEN 반영
 | `29821a6` | REFACTOR: PCTF prompts for steps 4-6 | `origin/REFACTORING` |
 | `2d81f59` | REFACTOR step4-5: naming, Sentiment enum, SentimentClassifier (FR-12~14) | `origin/REFACTORING` |
 | `0c23667` | REFACTOR step6: Controller SRP and package split (FR-15, FR-16) | `origin/REFACTORING` |
-| `3324267` | REFACTOR: report/02_REFACTORING_report.md | `origin/REFACTORING` |
+| `3324267` | REFACTOR: report/03_REFACTORING_report.md | `origin/REFACTORING` |
 | `2ccbe96` | docs: User_prompt REFACTORING step6 완료 (#42) | `origin/REFACTORING` |
 
 ```bash

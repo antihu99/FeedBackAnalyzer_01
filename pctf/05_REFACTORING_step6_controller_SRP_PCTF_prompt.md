@@ -8,7 +8,7 @@
 | 브랜치 | `REFACTORING` |
 | PRD | FR-15, FR-16 |
 | **선행** | `pctf/03`, `pctf/04` 완료 |
-| 본 PCTF 산출물 | 패키지 분리, `report/02_REFACTORING_report.md`, PR 준비 |
+| 본 PCTF 산출물 | 패키지 분리, `report/03_REFACTORING_report.md`, PR 준비 |
 | 예상 시간 | 1h |
 | 작성일 | 2026-05-22 |
 
@@ -19,7 +19,7 @@
 - **Controller = HTTP only** (FR-15): CSV 파싱·집계·필터 오케스트레이션 → Service.
 - **패키지 분리** (FR-16): `controller`, `service`, `model`, `config`.
 - **외부 계약 불변**: URL·CSV·Thymeleaf view 이름 유지 (`tdd_rules.yaml` contract_immutable).
-- **마무리**: `report/02_REFACTORING_report.md`, REFACTORING → A-01 PR.
+- **마무리**: `report/03_REFACTORING_report.md`, REFACTORING → A-01 PR.
 
 ---
 
@@ -65,7 +65,7 @@ git commit -m "REFACTOR step6: Controller SRP and package split (FR-15, FR-16)"
 git push origin REFACTORING
 
 # 마무리 리포트
-git commit -m "REFACTOR: report/02_REFACTORING_report.md"
+git commit -m "REFACTOR: report/03_REFACTORING_report.md"
 git push origin REFACTORING
 ```
 
@@ -111,11 +111,11 @@ git push origin REFACTORING
 
 | 파일 | 내용 |
 |------|------|
-| `report/02_REFACTORING_report.md` | step4~6 요약, FR-12~16 체크리스트, mvn test·jacoco, Before/After 구조 |
+| `report/03_REFACTORING_report.md` | step4~6 요약, FR-12~16 체크리스트, mvn test·jacoco, Before/After 구조 |
 
 ```bash
-git add report/02_REFACTORING_report.md
-git commit -m "REFACTOR: report/02_REFACTORING_report.md"
+git add report/03_REFACTORING_report.md
+git commit -m "REFACTOR: report/03_REFACTORING_report.md"
 git push origin REFACTORING
 ```
 
@@ -150,7 +150,7 @@ P (Purpose)
 - FR-15: FeedbackController HTTP only, FeedbackService 분리
 - FR-16: packages controller, service, model, config
 - URL /, /analyze, /upload, /filter, /download 불변. mvn test 전부 PASS.
-- report/02_REFACTORING_report.md 작성 후 push. (PR 생성은 사용자 요청 시)
+- report/03_REFACTORING_report.md 작성 후 push. (PR 생성은 사용자 요청 시)
 
 C (Context)
 - @docs/02_work_scenario.md §7.3 @docs/00_prd.md FR-15~16
@@ -171,8 +171,8 @@ R6-03:
   git commit -m "REFACTOR step6: Controller SRP and package split (FR-15, FR-16)"
   git push origin REFACTORING
 
-R6-04: report/02_REFACTORING_report.md (step4~6, FR-12~16, jacoco)
-  git commit -m "REFACTOR: report/02_REFACTORING_report.md"
+R6-04: report/03_REFACTORING_report.md (step4~6, FR-12~16, jacoco)
+  git commit -m "REFACTOR: report/03_REFACTORING_report.md"
   git push origin REFACTORING
 
 F (Format)
@@ -193,7 +193,7 @@ F (Format)
 1) REFACTOR step4: domain naming and constants (FR-12, FR-13)
 2) REFACTOR step5: SentimentClassifier SRP and TextAnalyzer extract (FR-14)
 3) REFACTOR step6: Controller SRP and package split (FR-15, FR-16)
-4) REFACTOR: report/02_REFACTORING_report.md
+4) REFACTOR: report/03_REFACTORING_report.md
 
 계약: HTTP 5 path, CSV text 컬럼 불변. TEST_PLAN TC 유지.
 ```

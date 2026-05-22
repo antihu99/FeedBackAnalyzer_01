@@ -17,7 +17,7 @@ Agent는 **Feedback Analyzer** GREEN 단계에서 다음을 수행했다.
 
 1. PCTF 02 실행: G-00 baseline Failures=2 확인 → `Filters` 감정 규칙 통일 → TC-NEUTRAL PASS
 2. `mvn test`: Tests **34**, Failures **0**, JaCoCo line **90.8%**
-3. 리포트: `report/01_GREEN_bugfix_report.md`
+3. 리포트: `report/02_GREEN_bugfix_report.md`
 4. Git: `87136db`, `c9b926a` → `origin/GREEN`
 5. PR #4: `GREEN` → `A-01` (**MERGED**)
 6. `docs/08_GREEN_test_results.md` — TC 실측 (머지 전)
@@ -33,7 +33,7 @@ Agent는 **Feedback Analyzer** GREEN 단계에서 다음을 수행했다.
 
 ### 2.1. PCTF 02 — GREEN TDD (마스터)
 
-**산출물**: `Filters.java`(최소), `report/01_GREEN_bugfix_report.md`  
+**산출물**: `Filters.java`(최소), `report/02_GREEN_bugfix_report.md`  
 **금지**: `src/test/**` 수정, REFACTORING, `@Disabled`
 
 ```
@@ -56,7 +56,7 @@ G-00: mvn test → Failures=2, TC-NEUTRAL-01/02 실패 확인 (커밋 생략)
 G-01~02, G-05: TA/FI/FH 회귀 PASS 확인 (변경 없으면 커밋 생략)
 G-03~04: Filters 최소 수정 → TC-NEUTRAL-01/02 PASS → commit + push
 G-06: mvn test Failures=0; jacoco:report line ≥90%
-G-07: report/01_GREEN_bugfix_report.md → commit + push
+G-07: report/02_GREEN_bugfix_report.md → commit + push
 
 F (Format)
 - TEST_PLAN TC ID·메서드명·assert 유지.
@@ -117,7 +117,7 @@ After:  fil() → Constants.SENTIMENT_KEYWORDS (TextAnalyzer.sent()와 동일)
 | 순서 | 해시 | 메시지 | 포함 주요 경로 |
 |------|------|--------|----------------|
 | 1 | `87136db` | GREEN: TC-NEUTRAL-01/02 neutral filter alignment (FR-09) | `Filters.java` |
-| 2 | `c9b926a` | GREEN: report/01_GREEN_bugfix_report.md | `report/01_GREEN_bugfix_report.md` |
+| 2 | `c9b926a` | GREEN: report/02_GREEN_bugfix_report.md | `report/02_GREEN_bugfix_report.md` |
 | 3 | `47a62be` | GREEN: prompting·PCTF 문서화 | `prompting/`, `pctf/02_GREEN_PCTF_prompt.md` |
 | 4 | `6e88371` | GREEN: docs/08_GREEN_test_results.md | `docs/08`, `docs/03_work_guide` |
 
@@ -144,7 +144,7 @@ After:  fil() → Constants.SENTIMENT_KEYWORDS (TextAnalyzer.sent()와 동일)
 
 | 파일 | 역할 |
 |------|------|
-| `01_GREEN_bugfix_report.md` | GREEN TC PASS/FAIL·JaCoCo·수정 요약 |
+| `02_GREEN_bugfix_report.md` | GREEN TC PASS/FAIL·JaCoCo·수정 요약 |
 
 ### pctf/
 
@@ -166,7 +166,7 @@ docs/07_RED_test_plan.md (B类 FAIL 2건)
 mvn test: Failures=0  |  JaCoCo ≥ 90%
          │
          ▼
-report/01_GREEN_bugfix_report.md
+report/02_GREEN_bugfix_report.md
          │
          ▼
 PR #4 MERGED → A-01 @ 6e88371  |  PR #3 → main (OPEN)
@@ -196,7 +196,7 @@ REFACTORING (별도)  |  FR-10/11 (별도 PCTF)
 | 사용자 프롬프트 표 | `prompting/User_prompt.md` |
 | Git 명령 | `prompting/GIT_prompt.md` |
 | RED 대화 기록 | `prompting/01_RED_prompt.md` |
-| GREEN 리포트 | `report/01_GREEN_bugfix_report.md` |
+| GREEN 리포트 | `report/02_GREEN_bugfix_report.md` |
 | TEST_PLAN | `docs/07_RED_test_plan.md` |
 | GREEN PCTF | `pctf/02_GREEN_PCTF_prompt.md` |
 | GREEN TC 실측 | `docs/08_GREEN_test_results.md` |

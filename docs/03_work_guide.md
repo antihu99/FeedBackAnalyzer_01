@@ -74,11 +74,11 @@ mvn spring-boot:run
 | 파일 | 산출물 |
 |------|--------|
 | `00_RED_test_plan_PCTF.md` | `docs/07_RED_test_plan.md` |
-| `01_RED_PCTF_prompt.md` | `src/test/**`, JaCoCo, `report/00_RED_coverage_report.md` |
-| `02_GREEN_PCTF_prompt.md` | 프로덕션 최소 수정, `docs/08_GREEN_test_results.md`, `report/01_GREEN_bugfix_report.md` |
+| `01_RED_PCTF_prompt.md` | `src/test/**`, JaCoCo, `report/01_RED_coverage_report.md` |
+| `02_GREEN_PCTF_prompt.md` | 프로덕션 최소 수정, `docs/08_GREEN_test_results.md`, `report/02_GREEN_bugfix_report.md` |
 | `03_REFACTORING_step4_naming_PCTF_prompt.md` | 4단계 네이밍·상수 (FR-12~13), step4 commit |
 | `04_REFACTORING_step5_sentiment_SRP_PCTF_prompt.md` | 5단계 SentimentClassifier·SRP (FR-14), `docs/09` 부록 |
-| `05_REFACTORING_step6_controller_SRP_PCTF_prompt.md` | 6단계 Controller·패키지 (FR-15~16), `report/02` |
+| `05_REFACTORING_step6_controller_SRP_PCTF_prompt.md` | 6단계 Controller·패키지 (FR-15~16), `report/03` |
 
 ### 3.1.1. 프로젝트 루트 — Agent·TDD 규칙 (YAML)
 
@@ -94,9 +94,9 @@ mvn spring-boot:run
 
 | 규칙 | 형식 `{NN}_{제목}.md` |
 |------|----------------------|
-| 예시 | `00_RED_coverage_report.md` |
-| 예시 | `01_GREEN_bugfix_report.md` |
-| 예시 | `04_retrospective.md` |
+| 예시 | `01_RED_coverage_report.md` |
+| 예시 | `02_GREEN_bugfix_report.md` |
+| 예시 | `05_retrospective.md` |
 
 ### 3.3. prompting/ — Agent 기록
 
@@ -244,7 +244,7 @@ git push -u origin SPEC
 - [ ] JaCoCo 설정
 - [ ] TextAnalyzer / Filters / FileHandler TC
 - [ ] coverage ≥ 90%
-- [ ] `report/00_RED_coverage_report.md`
+- [ ] `report/01_RED_coverage_report.md`
 
 ### GREEN
 
@@ -253,23 +253,23 @@ git push -u origin SPEC
 - [ ] FR-10 multiline
 - [ ] FR-11 로그 UI
 - [ ] `mvn test` Green
-- [ ] `report/01_GREEN_bugfix_report.md`
+- [ ] `report/02_GREEN_bugfix_report.md`
 
 ### REFACTORING
 
 - [ ] FR-12~16
 - [ ] 패키지 분리
-- [ ] `report/02_REFACTORING_report.md`
+- [ ] `report/03_REFACTORING_report.md`
 
 ### New_Feature
 
 - [ ] `test_feedback_trend.csv`
 - [ ] Trend UI + File DB
-- [ ] `report/03_New_Feature_report.md`
+- [ ] `report/04_New_Feature_report.md`
 
 ### 회고
 
-- [ ] `report/04_retrospective.md`
+- [ ] `report/05_retrospective.md`
 - [ ] PR A-01 → main
 
 ---

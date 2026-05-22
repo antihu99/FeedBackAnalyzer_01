@@ -6,8 +6,8 @@
 | 단계 | **GREEN** (TDD 최소 구현만 — **REFACTORING 금지**) |
 | 브랜치 | `GREEN` (base: `A-01`, RED 머지 반영) |
 | PRD | FR-09 (`docs/07_RED_test_plan.md` §6.2 B类) |
-| **선행 산출물** | `docs/07_RED_test_plan.md`, `src/test/**` (RED), `report/00_RED_coverage_report.md` |
-| 본 PCTF 산출물 | 프로덕션 **최소 수정**, `report/01_GREEN_bugfix_report.md`, 단계별 Git push |
+| **선행 산출물** | `docs/07_RED_test_plan.md`, `src/test/**` (RED), `report/01_RED_coverage_report.md` |
+| 본 PCTF 산출물 | 프로덕션 **최소 수정**, `report/02_GREEN_bugfix_report.md`, 단계별 Git push |
 | 작성일 | 2026-05-22 |
 
 ---
@@ -22,7 +22,7 @@ docs/07_RED_test_plan.md (TC 표 · GREEN 열)
          │
          ├── (단계별) mvn test → FAIL 확인 → 최소 프로덕션 수정 → PASS 확인
          ├── (단계별) git commit + git push origin GREEN
-         └── report/01_GREEN_bugfix_report.md
+         └── report/02_GREEN_bugfix_report.md
 ```
 
 ---
@@ -104,7 +104,7 @@ git pull origin GREEN   # 필요 시
 | **G-04** | **TC-NEUTRAL-02** | §6.2 | **FAIL** | **PASS** | G-03 이어서 최소 | `GREEN: TC-NEUTRAL-02 mixedList_filterNeutralCount_matchesSentimentBucket (FR-09)` |
 | **G-05** | FH-01 ~ FH-03 | §7 | PASS | 회귀 PASS 유지 | 없음(통상) | `GREEN: FH-01~FH-03 regression verified` *(변경 없으면 생략)* |
 | **G-06** | 전체 + JaCoCo | §9, §11 | — | Failures=0, ≥90% | 없음 | `GREEN: all TEST_PLAN TC pass, mvn test 0 failures` |
-| **G-07** | 리포트 | `tdd_rules` | — | 문서화 | 없음 | `GREEN: report/01_GREEN_bugfix_report.md` |
+| **G-07** | 리포트 | `tdd_rules` | — | 문서화 | 없음 | `GREEN: report/02_GREEN_bugfix_report.md` |
 
 ---
 
@@ -255,13 +255,13 @@ git push origin GREEN
 
 | 경로 | 내용 |
 |------|------|
-| `report/01_GREEN_bugfix_report.md` | TC별 RED→GREEN 결과, 수정 파일·요약, `mvn test`/JaCoCo 수치 |
+| `report/02_GREEN_bugfix_report.md` | TC별 RED→GREEN 결과, 수정 파일·요약, `mvn test`/JaCoCo 수치 |
 
 **Git**
 
 ```bash
-git add report/01_GREEN_bugfix_report.md
-git commit -m "GREEN: report/01_GREEN_bugfix_report.md"
+git add report/02_GREEN_bugfix_report.md
+git commit -m "GREEN: report/02_GREEN_bugfix_report.md"
 git push origin GREEN
 ```
 
@@ -276,7 +276,7 @@ git push origin GREEN
 | `src/main/java/com/example/demo/Filters.java` | B类 최소 수정 (필수 가능) |
 | `src/main/java/com/example/demo/TextAnalyzer.java` | 규칙 통일 시만 |
 | `src/main/java/com/example/demo/Constants.java` | 키워드 정렬 시만 |
-| `report/01_GREEN_bugfix_report.md` | GREEN 결과 |
+| `report/02_GREEN_bugfix_report.md` | GREEN 결과 |
 | `src/test/**` | **변경 금지** |
 
 ### DoD
@@ -286,7 +286,7 @@ git push origin GREEN
 - [ ] G-03: **TC-NEUTRAL-01** PASS + 커밋·push
 - [ ] G-04: **TC-NEUTRAL-02** PASS + 커밋·push
 - [ ] G-06: 전체 `mvn test` Failures=0, JaCoCo ≥ 90%
-- [ ] G-07: `report/01_GREEN_bugfix_report.md` + push
+- [ ] G-07: `report/02_GREEN_bugfix_report.md` + push
 - [ ] REFACTORING(네이밍·SRP·Controller 분리) **미수행**
 - [ ] `target/`, `*.class` 미커밋
 
@@ -349,8 +349,8 @@ G-06: mvn test → Failures=0, Errors=0; mvn jacoco:report → line ≥90%
      commit -m "GREEN: all TEST_PLAN TC pass, mvn test 0 failures" (변경 있을 때)
      git push origin GREEN
 
-G-07: report/01_GREEN_bugfix_report.md (TC 표·PASS/FAIL·수정 요약·jacoco)
-     commit -m "GREEN: report/01_GREEN_bugfix_report.md"
+G-07: report/02_GREEN_bugfix_report.md (TC 표·PASS/FAIL·수정 요약·jacoco)
+     commit -m "GREEN: report/02_GREEN_bugfix_report.md"
      git push origin GREEN
 
 F (Format)
@@ -397,7 +397,7 @@ F (Format)
 |------|------|
 | TEST_PLAN | `docs/07_RED_test_plan.md` |
 | RED PCTF | `pctf/01_RED_PCTF_prompt.md` |
-| RED 리포트 | `report/00_RED_coverage_report.md` |
+| RED 리포트 | `report/01_RED_coverage_report.md` |
 | GREEN 시나리오 | `docs/02_work_scenario.md` §6 |
 | TDD GREEN | `tdd_rules.yaml` → `tracks.GREEN` |
 | 작업규칙 3단계 | `작업규칙.TXT` (FR-10/11은 본 PCTF와 분리) |

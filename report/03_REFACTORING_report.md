@@ -88,10 +88,10 @@ com.example.demo
 → 29821a6 PCTF prompts 4-6
 → 2d81f59 step4-5 naming + SentimentClassifier
 → (step6) Controller SRP + packages
-→ (본 리포트) report/02_REFACTORING_report.md
+→ (본 리포트) report/03_REFACTORING_report.md
 ```
 
-**후속**: PR `REFACTORING` → `A-01`
+**PR**: [#5 REFACTORING → A-01](https://github.com/antihu99/FeedBackAnalyzer_01/pull/5) (**OPEN**)
 
 ---
 

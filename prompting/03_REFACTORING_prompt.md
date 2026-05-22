@@ -78,7 +78,7 @@ T: R5-01 Classifier → R5-02 메서드 추출 → R5-03 docs/09 → R5-04 commi
 - `FeedbackService` — analyze, upload, filter, download
 - `controller.FeedbackController` — HTTP only
 - 패키지: `controller`, `service`, `model`, `config`
-- `report/02_REFACTORING_report.md`
+- `report/03_REFACTORING_report.md`
 
 ## 6. Git·PR (REFACTORING)
 
