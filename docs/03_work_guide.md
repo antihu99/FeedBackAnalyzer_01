@@ -75,6 +75,9 @@ mvn spring-boot:run
 | `00_RED_test_plan_PCTF.md` | `docs/07_RED_test_plan.md` |
 | `01_RED_PCTF_prompt.md` | `src/test/**`, JaCoCo, `report/00_RED_coverage_report.md` |
 | `02_GREEN_PCTF_prompt.md` | 프로덕션 최소 수정, `docs/08_GREEN_test_results.md`, `report/01_GREEN_bugfix_report.md` |
+| `03_REFACTORING_step4_naming_PCTF_prompt.md` | 4단계 네이밍·상수 (FR-12~13), step4 commit |
+| `04_REFACTORING_step5_sentiment_SRP_PCTF_prompt.md` | 5단계 SentimentClassifier·SRP (FR-14), `docs/09` 부록 |
+| `05_REFACTORING_step6_controller_SRP_PCTF_prompt.md` | 6단계 Controller·패키지 (FR-15~16), `report/02` |
 
 ### 3.1.1. 프로젝트 루트 — Agent·TDD 규칙 (YAML)
 

@@ -163,21 +163,27 @@ docs/   report/   prompting/
 
 ### 7.1. 4단계 — 네이밍·상수 (1h)
 
+- **PCTF**: `pctf/03_REFACTORING_step4_naming_PCTF_prompt.md` §★ PROMPT
 - 프롬프트: `@Constants.java @TextAnalyzer.java 매직넘버·네이밍`
 - `fil`→`filterFeedbacks`, `sent`→`analyzeSentiment`, `kw`→`analyzeKeywords`
 - DoD: FR-12~13, TC 유지
+- **Git**: `REFACTOR step4: domain naming and constants (FR-12, FR-13)` → `push origin REFACTORING`
 
 ### 7.2. 5단계 — 중복·긴 함수 (1.5h)
 
+- **PCTF**: `pctf/04_REFACTORING_step5_sentiment_SRP_PCTF_prompt.md` §★ PROMPT
 - 프롬프트: `@TextAnalyzer.java 20줄 이상 추출·중복 통합`
 - 감정 로직 **단일 클래스** (FR-14)
-- DoD: FR-14, SRP 제안서 `docs/` 또는 `report/` 부록
+- DoD: FR-14, SRP 제안서 `docs/09_REFACTOR_SRP_proposal.md` 또는 `report/` 부록
+- **Git**: `REFACTOR step5: SentimentClassifier SRP… (FR-14)` → push
 
 ### 7.3. 6단계 — Controller SRP (1h)
 
+- **PCTF**: `pctf/05_REFACTORING_step6_controller_SRP_PCTF_prompt.md` §★ PROMPT
 - 프롬프트: `@FeedbackController.java Service 분리`
 - 패키지: `controller`, `service`, `model`, `config`
 - DoD: FR-15~16, URL 불변
+- **Git**: `REFACTOR step6: Controller SRP…` + `report/02_REFACTORING_report.md` → push
 
 ### 공통 마무리
 
