@@ -209,6 +209,7 @@ docs/   report/   prompting/
 | 6 | PR → A-01 |
 
 - **PCTF**: `pctf/06_New_Feature_PCTF_prompt.md` §★ PROMPT
+- **TC 실측**: `docs/11_New_Feature_test_results.md`
 - **Git**: 시나리오 **1~5** 단계 종료마다 `commit` + `push origin New_Feature` (6단계는 PR만)
 
 ### DoD

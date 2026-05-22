@@ -26,9 +26,11 @@
 
 ### AC
 
-- [ ] classpath CSV 로드 시 날짜별 건수 ≥ 1
-- [ ] `index.html` Trend 섹션에 시계열 표시
-- [ ] 미존재 시 warning 메시지 (TC-TREND-02)
+- [x] classpath CSV 로드 시 날짜별 건수 ≥ 1
+- [x] `index.html` Trend 섹션에 시계열 표시
+- [x] 미존재 시 warning 메시지 (TC-TREND-02)
+
+> 실측: `docs/11_New_Feature_test_results.md` §3
 
 ---
 
@@ -54,10 +56,12 @@
 
 ### AC
 
-- [ ] 최초 기동: 파일 없으면 `Constants` 기본값으로 시드
-- [ ] 감정 키워드 추가/삭제 API·UI
-- [ ] 재기동 후 키워드 유지 (TC-KEYWORD-02)
-- [ ] 삭제 키워드는 분류·필터에 미반영 (TC-KEYWORD-03)
+- [x] 최초 기동: 파일 없으면 `Constants` 기본값으로 시드
+- [x] 감정 키워드 추가/삭제 API·UI
+- [x] 재기동 후 키워드 유지 (TC-KEYWORD-02)
+- [x] 삭제 키워드는 분류·필터에 미반영 (TC-KEYWORD-03)
+
+> 실측: `docs/11_New_Feature_test_results.md` §3·§4
 
 **설정**: `keywords.file.path=data/keywords.json` (`application.properties`)
 
@@ -79,3 +83,5 @@
 
 - `docs/07_RED_test_plan.md` TA/FI/FH·TC-NEUTRAL 전부 PASS
 - JaCoCo line ≥ 90%
+
+**실측 문서**: `docs/11_New_Feature_test_results.md`

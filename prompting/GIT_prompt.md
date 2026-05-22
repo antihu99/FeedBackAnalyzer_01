@@ -10,8 +10,9 @@
 | 항목 | 내용 |
 |------|------|
 | 작업 디렉터리 | `d:\Vs_workplace\Java_project\FeedBackAnalyzer_01` |
-| **현재 브랜치** | **`A-01`** |
-| **A-01 HEAD** | **`6e88371`** (SPEC+RED+GREEN) |
+| **현재 브랜치** | **`new_feature`** |
+| **A-01 HEAD** | **`28be9e9`** (report 번호 재매김 등) |
+| **new_feature HEAD** | **`b7e4d54`** (step5 report) |
 | **REFACTORING HEAD** | **`2ccbe96`** |
 | 원격 | `https://github.com/antihu99/FeedBackAnalyzer_01.git` |
 | SPEC | `a306870` → `9b03001` |
@@ -143,6 +144,29 @@ git push -u origin REFACTORING
 
 ---
 
+## 커밋 이력 (new_feature)
+
+| 해시 | 메시지 | push |
+|------|--------|------|
+| `3113e08` | docs: 프로젝트 작업 규칙 파일 추가 | `origin/new_feature` |
+| `291bd85` | FEATURE step1: start New_Feature branch from A-01 | `origin/new_feature` |
+| `523133d` | FEATURE step2: add trend CSV sample and feature schema | `origin/new_feature` |
+| `e690d9c` | FEATURE step3: add Trend and Keyword File DB tests | `origin/new_feature` |
+| `852fc4c` | FEATURE step4: Trend visualization and File DB keywords | `origin/new_feature` |
+| `b7e4d54` | FEATURE step5: report/04_New_Feature_report.md | `origin/new_feature` |
+
+```bash
+git checkout A-01
+git pull origin A-01
+git checkout -b new_feature   # 또는 기존 new_feature
+git commit --allow-empty -m "FEATURE step1: start New_Feature branch from A-01"
+git push -u origin new_feature
+# step2~5: FEATURE stepN: ... (각 단계 후 push origin new_feature)
+# PR: new_feature → A-01
+```
+
+---
+
 ## prompting 동기화 (2026-05-22)
 
 | 파일 | 역할 |
@@ -151,5 +175,6 @@ git push -u origin REFACTORING
 | `01_RED_prompt.md` | RED Agent 기록 |
 | `02_GREEN_prompt.md` | GREEN Agent 기록 |
 | `03_REFACTORING_prompt.md` | REFACTORING step4~6 Agent 기록 |
-| `User_prompt.md` | 사용자 prompt 표 (#1~#43) |
+| `04_New_Feature_prompt.md` | New_Feature PCTF 06 Agent 기록 |
+| `User_prompt.md` | 사용자 prompt 표 (#1~#50) |
 | `GIT_prompt.md` | 본 문서 |

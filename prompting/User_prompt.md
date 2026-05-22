@@ -20,7 +20,7 @@
 
 |------|------|
 
-| 총 프롬프트 수 | **43** |
+| 총 프롬프트 수 | **50** |
 
 | SPEC 관련 | #1~#17 |
 
@@ -132,6 +132,13 @@
 | 41 | 2026-05-22 | REFACTORING | **작업 재개** | agent PROMPT 사라짐 → REFACTORING step4~5 이어서 진행 |
 | 42 | 2026-05-22 | REFACTORING | **Git push + step6** | step4~5 push, step6 패키지 분리, report/02, origin/REFACTORING push |
 | 43 | 2026-05-22 | Meta | **prompt 저장** | 프롬프트 파일을 저장해 주세요 |
+| 44 | 2026-05-22 | New_Feature | **브랜치 생성** | a-01 브랜치에서 new_feature 브랜치를 생성해줘 |
+| 45 | 2026-05-22 | New_Feature | **commit·push** | 커밋 과 푸시 진행해주세요 |
+| 46 | 2026-05-22 | New_Feature | **PCTF 작성** | 02_work_scenario §8 단계 PCTF 프롬프트 만들어 저장 |
+| 47 | 2026-05-22 | New_Feature | **PCTF 수정** | 시나리오 각 단계마다 GitHub commit 하도록 프롬프트 수정 |
+| 48 | 2026-05-22 | New_Feature | **PCTF 06 실행** | PCTF 06 New_Feature FR-17~18 마스터 PROMPT 전체 실행 |
+| 49 | 2026-05-22 | New_Feature | **TC 결과 문서** | New_Feature TC·회귀 검증 결과 docs 작성 |
+| 50 | 2026-05-22 | New_Feature | **prompt·push** | 프롬프트 저장하고 작업 파일 new_feature 커밋 푸시 |
 
 
 
@@ -239,6 +246,14 @@
 
 
 PCTF 02 → PR #4 → `docs/08` → A-01 머지 → PR #3 갱신 → prompting 동기화
+
+
+
+### New_Feature (#44~#50)
+
+
+
+`new_feature` 브랜치 → PCTF 06 → step1~5 commit+push → `docs/11` → `04_New_Feature_prompt.md`
 
 
 
