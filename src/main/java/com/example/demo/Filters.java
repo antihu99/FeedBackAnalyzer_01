@@ -1,77 +1,71 @@
 package com.example.demo;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 import static com.example.demo.Constants.CATEGORY_KEYWORDS;
+import static com.example.demo.Constants.FILTER_ALL;
 
 @Service
 public class Filters {
 
-    private static final Map<String, List<String>> S_KEYWORDS = new HashMap<>();
+    private final SentimentClassifier sentimentClassifier;
 
-    static {
-        S_KEYWORDS.put("긍정", Arrays.asList(
-                "좋아요", "만족", "감사", "친절", "좋다", "좋았", "좋은", "우수", "빠르", "정확", "신속", "안전", "괜찮", "인상적", "추천", "기대 이상", "합리", "꼼꼼", "뛰어납니다", "만족스럽", "좋았습니다", "좋습니다", "만족합니다", "굿", "최고", "최고입니다", "감사합니다"
-        ));
-        S_KEYWORDS.put("부정", Arrays.asList(
-                "나쁘", "불만", "실망", "최악", "별로", "불편", "불만족", "문제",
-                "불량", "불량품", "환불", "교환", "불만족스럽", "실망스럽", "비싸", "불친절", "늦다"
-        ));
-        S_KEYWORDS.put("중립", Arrays.asList(
-                "괜찮", "보통", "평범", "무난", "그냥", "전반적", "완료", "적당", "나쁘지 않", "특별", "없"
-        ));
+    @Autowired
+    public Filters(SentimentClassifier sentimentClassifier) {
+        this.sentimentClassifier = sentimentClassifier;
     }
 
-    public List<Feedback> fil(List<Feedback> dataList, String sFilter, String kFilter) {
-        List<Feedback> tmpFiltered = new ArrayList<>();
+    public List<Feedback> filterFeedbacks(List<Feedback> dataList, String sentimentFilter, String keywordFilter) {
+        List<Feedback> afterSentiment = applySentimentFilter(dataList, sentimentFilter);
+        List<Feedback> finalFiltered = applyKeywordFilter(afterSentiment, keywordFilter);
 
-        if (!"전체".equals(sFilter)) {
-            for (Feedback item : dataList) {
-                String currentSentiment = resolveSentimentLikeAnalyzer(item.getText());
-
-                if (currentSentiment.equals(sFilter)) {
-                    tmpFiltered.add(item);
-                }
-            }
-        } else {
-            tmpFiltered = new ArrayList<>(dataList);
-        }
-
-        List<Feedback> finalFiltered = new ArrayList<>();
-        if (!"전체".equals(kFilter)) {
-            for (Feedback item : tmpFiltered) {
-                String txt = item.getText().toLowerCase();
-
-                Map<String, List<String>> tmpSub = (Map<String, List<String>>)CATEGORY_KEYWORDS.get(kFilter).get("sub");
-
-                for (String key : tmpSub.keySet()) {
-                    if(tmpSub.get(key).stream().anyMatch(keyword -> txt.contains(keyword))) {
-                        finalFiltered.add(item);
-                    }
-                }
-            }
-        } else {
-            finalFiltered = new ArrayList<>(tmpFiltered);
-        }
-
-        for(Feedback i : finalFiltered) {
-            System.out.println(i.getText());
+        for (Feedback item : finalFiltered) {
+            System.out.println(item.getText());
         }
 
         return finalFiltered;
     }
 
-    /** TextAnalyzer.sent()와 동일: Constants 긍/부만 검사, 없으면 중립 (FR-09) */
-    private String resolveSentimentLikeAnalyzer(String text) {
-        String txt = text.toLowerCase();
-        if (Constants.SENTIMENT_KEYWORDS.get("긍정").stream().anyMatch(k -> txt.contains(k))) {
-            return "긍정";
+    private List<Feedback> applySentimentFilter(List<Feedback> dataList, String sentimentFilter) {
+        if (FILTER_ALL.equals(sentimentFilter)) {
+            return new ArrayList<>(dataList);
         }
-        if (Constants.SENTIMENT_KEYWORDS.get("부정").stream().anyMatch(k -> txt.contains(k))) {
-            return "부정";
+        List<Feedback> matched = new ArrayList<>();
+        for (Feedback item : dataList) {
+            if (sentimentClassifier.classify(item.getText()).equals(sentimentFilter)) {
+                matched.add(item);
+            }
         }
-        return "중립";
+        return matched;
+    }
+
+    private List<Feedback> applyKeywordFilter(List<Feedback> dataList, String keywordFilter) {
+        if (FILTER_ALL.equals(keywordFilter)) {
+            return new ArrayList<>(dataList);
+        }
+        List<Feedback> matched = new ArrayList<>();
+        for (Feedback item : dataList) {
+            if (matchesCategoryKeyword(item.getText().toLowerCase(), keywordFilter)) {
+                matched.add(item);
+            }
+        }
+        return matched;
+    }
+
+    private boolean matchesCategoryKeyword(String lowerText, String keywordFilter) {
+        @SuppressWarnings("unchecked")
+        Map<String, List<String>> subKeywords = (Map<String, List<String>>) CATEGORY_KEYWORDS
+                .get(keywordFilter).get("sub");
+        for (List<String> keywords : subKeywords.values()) {
+            if (keywords.stream().anyMatch(lowerText::contains)) {
+                return true;
+            }
+        }
+        return false;
     }
 }

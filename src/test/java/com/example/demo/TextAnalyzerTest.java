@@ -18,14 +18,15 @@ class TextAnalyzerTest {
 
     @BeforeEach
     void setUp() {
-        textAnalyzer = new TextAnalyzer();
+        SentimentClassifier classifier = new SentimentClassifier();
+        textAnalyzer = new TextAnalyzer(classifier);
     }
 
     @Test
     @DisplayName("TA-01: 긍정 키워드 집계")
     void sent_positiveKeyword_incrementsPositive() {
         List<Feedback> list = List.of(new Feedback("배송이 최고예요"));
-        Map<String, Integer> result = textAnalyzer.sent(list);
+        Map<String, Integer> result = textAnalyzer.analyzeSentiment(list);
         assertEquals(1, result.get("긍정"));
         assertEquals(0, result.get("부정"));
         assertEquals(0, result.get("중립"));
@@ -35,7 +36,7 @@ class TextAnalyzerTest {
     @DisplayName("TA-02: 부정 키워드 집계")
     void sent_negativeKeyword_incrementsNegative() {
         List<Feedback> list = List.of(new Feedback("화가 나고 최악이에요"));
-        Map<String, Integer> result = textAnalyzer.sent(list);
+        Map<String, Integer> result = textAnalyzer.analyzeSentiment(list);
         assertEquals(1, result.get("부정"));
     }
 
@@ -43,14 +44,14 @@ class TextAnalyzerTest {
     @DisplayName("TA-03: 키워드 없으면 중립 기본값")
     void sent_noKeyword_defaultsNeutral() {
         List<Feedback> list = List.of(new Feedback("보통이에요"));
-        Map<String, Integer> result = textAnalyzer.sent(list);
+        Map<String, Integer> result = textAnalyzer.analyzeSentiment(list);
         assertEquals(1, result.get("중립"));
     }
 
     @Test
     @DisplayName("TA-04: 빈 목록은 모두 0")
     void sent_emptyList_allZero() {
-        Map<String, Integer> result = textAnalyzer.sent(Collections.emptyList());
+        Map<String, Integer> result = textAnalyzer.analyzeSentiment(Collections.emptyList());
         assertEquals(0, result.get("긍정"));
         assertEquals(0, result.get("부정"));
         assertEquals(0, result.get("중립"));
@@ -63,7 +64,7 @@ class TextAnalyzerTest {
                 new Feedback("배송이 최고예요"),
                 new Feedback("화가 나고 최악이에요"),
                 new Feedback("보통이에요"));
-        Map<String, Integer> result = textAnalyzer.sent(list);
+        Map<String, Integer> result = textAnalyzer.analyzeSentiment(list);
         assertEquals(1, result.get("긍정"));
         assertEquals(1, result.get("부정"));
         assertEquals(1, result.get("중립"));
@@ -74,7 +75,7 @@ class TextAnalyzerTest {
     @DisplayName("TA-06: 배송 카테고리 키워드")
     void kw_deliveryCategory_matches() {
         List<Feedback> list = List.of(new Feedback("택배 배송이 지연됐어요"));
-        Map<String, Integer> result = textAnalyzer.kw(list);
+        Map<String, Integer> result = textAnalyzer.analyzeKeywords(list);
         assertTrue(result.get("배송") >= 1);
     }
 
@@ -82,14 +83,14 @@ class TextAnalyzerTest {
     @DisplayName("TA-07: 품질 카테고리 키워드")
     void kw_qualityCategory_matches() {
         List<Feedback> list = List.of(new Feedback("품질이 별로예요"));
-        Map<String, Integer> result = textAnalyzer.kw(list);
+        Map<String, Integer> result = textAnalyzer.analyzeKeywords(list);
         assertTrue(result.get("품질") >= 1);
     }
 
     @Test
     @DisplayName("TA-08: 빈 목록 카테고리 0")
     void kw_emptyList_allZero() {
-        Map<String, Integer> result = textAnalyzer.kw(Collections.emptyList());
+        Map<String, Integer> result = textAnalyzer.analyzeKeywords(Collections.emptyList());
         for (String category : Constants.CATEGORY_KEYWORDS.keySet()) {
             assertEquals(0, result.get(category));
         }

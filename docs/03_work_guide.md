@@ -67,6 +67,7 @@ mvn spring-boot:run
 | `06_todo_list.md` | To-Do·마일스톤·회귀 체크리스트 (Phase 6) |
 | `07_RED_test_plan.md` | RED 단계 **TEST_PLAN** (TC PASS/FAIL 명세) |
 | `08_GREEN_test_results.md` | GREEN 단계 **TC 실행 결과** (머지 전 실측) |
+| `09_REFACTOR_SRP_proposal.md` | REFACTORING 5단계 **감정 SRP** Before/After |
 
 ### 3.1.0. pctf/ — 단계별 PCTF (Prompt 입력)
 
@@ -104,7 +105,8 @@ mvn spring-boot:run
 | `00_SPEC_prompt.md` | SPEC 단계 Agent 대화·산출물 |
 | `01_RED_prompt.md` | RED 단계 Agent 대화·PCTF·JUnit |
 | `02_GREEN_prompt.md` | GREEN 단계 Agent 대화·FR-09 수정 |
-| `User_prompt.md` | 사용자 프롬프트 **표** (#1~#40) + 요약 |
+| `03_REFACTORING_prompt.md` | REFACTORING step4~5 Agent 대화·rename·SRP |
+| `User_prompt.md` | 사용자 프롬프트 **표** (#1~#41) + 요약 |
 | `GIT_prompt.md` | git 명령·PR·커밋 이력 (중복 제거) |
 
 > 단계 종료·머지 후 `User_prompt.md`·`GIT_prompt.md`·해당 `{NN}_prompt.md` 를 **동기화**한다.

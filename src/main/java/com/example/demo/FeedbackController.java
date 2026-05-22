@@ -34,7 +34,7 @@ public class FeedbackController {
     @Autowired
     private Logger logger;
 
-    private List<Feedback> fil_data = new ArrayList<>();
+    private List<Feedback> filteredFeedbacksForExport = new ArrayList<>();
 
     @GetMapping("/")
     public String index(Model model) {
@@ -70,8 +70,8 @@ public class FeedbackController {
             model.addAttribute("success", feedbacks.size() + "개의 피드백이 입력되었습니다.");
             // Analyze feedbacks
             if (!feedbacks.isEmpty()) {
-                Map<String, Integer> sentimentResults = textAnalyzer.sent(feedbacks);
-                Map<String, Integer> keywordResults = textAnalyzer.kw(feedbacks);
+                Map<String, Integer> sentimentResults = textAnalyzer.analyzeSentiment(feedbacks);
+                Map<String, Integer> keywordResults = textAnalyzer.analyzeKeywords(feedbacks);
 
                 model.addAttribute("sentimentResults", sentimentResults);
                 model.addAttribute("keywordResults", keywordResults);
@@ -139,12 +139,12 @@ public class FeedbackController {
             List<Feedback> feedbacks = Session.getCurrentFeedbacks();
 
             if (!feedbacks.isEmpty()) {
-                List<Feedback> filtered = filters.fil(feedbacks, sentiment, keyword);
+                List<Feedback> filtered = filters.filterFeedbacks(feedbacks, sentiment, keyword);
 
                 if (!filtered.isEmpty()) {
-                    fil_data = filtered;
-                    Map<String, Integer> sentimentResults = textAnalyzer.sent(filtered);
-                    Map<String, Integer> keywordResults = textAnalyzer.kw(filtered);
+                    filteredFeedbacksForExport = filtered;
+                    Map<String, Integer> sentimentResults = textAnalyzer.analyzeSentiment(filtered);
+                    Map<String, Integer> keywordResults = textAnalyzer.analyzeKeywords(filtered);
 
                     model.addAttribute("sentimentResults", sentimentResults);
                     model.addAttribute("keywordResults", keywordResults);
@@ -183,7 +183,7 @@ public class FeedbackController {
         PrintWriter wr =  new PrintWriter(res.getOutputStream(), true, StandardCharsets.UTF_8);
 
         wr.println("text");
-        for(Feedback iter : fil_data) {
+        for (Feedback iter : filteredFeedbacksForExport) {
             wr.println(iter.getText());
         }
         wr.flush();
