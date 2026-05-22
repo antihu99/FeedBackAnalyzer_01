@@ -80,18 +80,18 @@ T: R5-01 Classifier → R5-02 메서드 추출 → R5-03 docs/09 → R5-04 commi
 - 패키지: `controller`, `service`, `model`, `config`
 - `report/02_REFACTORING_report.md`
 
-## 6. 후속 작업 (미완)
+## 6. Git·PR (REFACTORING)
 
-| # | 작업 | PCTF | 상태 |
-|---|------|------|------|
-| 1 | step6 Controller→Service, 패키지 분리 | `pctf/05` | **완료** |
-| 2 | `report/02_REFACTORING_report.md` | step6 마무리 | **완료** |
-| 3 | REFACTORING → A-01 PR | Git | 미착수 |
-| 4 | PR #3 A-01 → main 머지 | Git | **OPEN** |
+| 항목 | 내용 |
+|------|------|
+| 커밋 | `2d81f59` step4-5 · `0c23667` step6 · `3324267` report/02 · `2ccbe96` docs |
+| push | `origin/REFACTORING` |
+| PR | **#5** REFACTORING → A-01 (OPEN) |
+| PR #3 | A-01 → main (OPEN, SPEC+RED+GREEN) |
 
 ---
 
-## 6. 교차 참조
+## 7. 교차 참조
 
 | 문서 | 경로 |
 |------|------|

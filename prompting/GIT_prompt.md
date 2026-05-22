@@ -11,12 +11,13 @@
 |------|------|
 | 작업 디렉터리 | `d:\Vs_workplace\Java_project\FeedBackAnalyzer_01` |
 | **현재 브랜치** | **`A-01`** |
-| **A-01 / GREEN HEAD** | **`6e88371`** |
+| **A-01 HEAD** | **`6e88371`** (SPEC+RED+GREEN) |
+| **REFACTORING HEAD** | **`2ccbe96`** |
 | 원격 | `https://github.com/antihu99/FeedBackAnalyzer_01.git` |
 | SPEC | `a306870` → `9b03001` |
 | RED | `e6c9b09` → `e07ca6b` |
 | GREEN | `87136db` → `6e88371` (4커밋) |
-| **PR** | #1 SPEC→A-01 · #2 RED→A-01 · **#3 A-01→main OPEN** · #4 GREEN→A-01 **MERGED** |
+| **PR** | #1~#2 Merged · **#3 A-01→main OPEN** · #4 GREEN→A-01 **MERGED** · **#5 REFACTORING→A-01 OPEN** |
 
 ---
 
@@ -124,13 +125,20 @@ PR #3 갱신: REST API `PATCH /pulls/3` — 제목·본문 GREEN 반영
 
 ---
 
-## 후속 권장 (REFACTORING)
+## 커밋 이력 (REFACTORING)
+
+| 해시 | 메시지 | push |
+|------|--------|------|
+| `29821a6` | REFACTOR: PCTF prompts for steps 4-6 | `origin/REFACTORING` |
+| `2d81f59` | REFACTOR step4-5: naming, Sentiment enum, SentimentClassifier (FR-12~14) | `origin/REFACTORING` |
+| `0c23667` | REFACTOR step6: Controller SRP and package split (FR-15, FR-16) | `origin/REFACTORING` |
+| `3324267` | REFACTOR: report/02_REFACTORING_report.md | `origin/REFACTORING` |
+| `2ccbe96` | docs: User_prompt REFACTORING step6 완료 (#42) | `origin/REFACTORING` |
 
 ```bash
-git checkout A-01
-git pull origin A-01
-# PR #3 머지 후 main pull
-git checkout -b REFACTORING
+git checkout REFACTORING
+git push -u origin REFACTORING
+# PR #5 REFACTORING → A-01
 ```
 
 ---
@@ -142,5 +150,6 @@ git checkout -b REFACTORING
 | `00_SPEC_prompt.md` | SPEC Agent 기록 |
 | `01_RED_prompt.md` | RED Agent 기록 |
 | `02_GREEN_prompt.md` | GREEN Agent 기록 |
-| `User_prompt.md` | 사용자 prompt 표 (#1~#40) |
+| `03_REFACTORING_prompt.md` | REFACTORING step4~6 Agent 기록 |
+| `User_prompt.md` | 사용자 prompt 표 (#1~#43) |
 | `GIT_prompt.md` | 본 문서 |
