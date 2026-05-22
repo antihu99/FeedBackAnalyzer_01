@@ -98,9 +98,13 @@ mvn spring-boot:run
 
 | 파일 | 내용 |
 |------|------|
-| `{NN}_{단계}_prompt.md` | 단계별 **대화 전체** |
-| `User_prompt.md` | 사용자 프롬프트만 **표** + 요약 |
-| `GIT_prompt.md` | 사용된 **git 명령만** (중복 제거) |
+| `00_SPEC_prompt.md` | SPEC 단계 Agent 대화·산출물 |
+| `01_RED_prompt.md` | RED 단계 Agent 대화·PCTF·JUnit |
+| `02_GREEN_prompt.md` | GREEN 단계 Agent 대화·FR-09 수정 |
+| `User_prompt.md` | 사용자 프롬프트 **표** (#1~#40) + 요약 |
+| `GIT_prompt.md` | git 명령·PR·커밋 이력 (중복 제거) |
+
+> 단계 종료·머지 후 `User_prompt.md`·`GIT_prompt.md`·해당 `{NN}_prompt.md` 를 **동기화**한다.
 
 #### User_prompt 표 예시
 
@@ -340,7 +344,9 @@ git push -u origin SPEC
 | 코드 스멜 | `docs/05_code_smell.md` |
 | To-Do | `docs/06_todo_list.md` |
 | SPEC 보고서 | `report/00_SPEC_phase_report.md` |
-| Agent 대화 | `prompting/00_SPEC_prompt.md` |
+| Agent 대화 | `prompting/00_SPEC_prompt.md`, `01_RED_prompt.md`, `02_GREEN_prompt.md` |
+| 사용자 prompt | `prompting/User_prompt.md` |
+| Git 기록 | `prompting/GIT_prompt.md` |
 
 ---
 
