@@ -73,12 +73,19 @@ T: R5-01 Classifier → R5-02 메서드 추출 → R5-03 docs/09 → R5-04 commi
 
 ---
 
-## 5. 후속 작업 (미완)
+## 5. step6 완료 (FR-15~16)
+
+- `FeedbackService` — analyze, upload, filter, download
+- `controller.FeedbackController` — HTTP only
+- 패키지: `controller`, `service`, `model`, `config`
+- `report/02_REFACTORING_report.md`
+
+## 6. 후속 작업 (미완)
 
 | # | 작업 | PCTF | 상태 |
 |---|------|------|------|
-| 1 | step6 Controller→Service, 패키지 분리 | `pctf/05` | **미착수** |
-| 2 | `report/02_REFACTORING_report.md` | step6 마무리 | 미착수 |
+| 1 | step6 Controller→Service, 패키지 분리 | `pctf/05` | **완료** |
+| 2 | `report/02_REFACTORING_report.md` | step6 마무리 | **완료** |
 | 3 | REFACTORING → A-01 PR | Git | 미착수 |
 | 4 | PR #3 A-01 → main 머지 | Git | **OPEN** |
 
