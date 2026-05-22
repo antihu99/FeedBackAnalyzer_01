@@ -1,5 +1,7 @@
 package com.example.demo;
 
+import com.example.demo.config.Constants;
+import com.example.demo.model.Feedback;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -7,8 +9,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import static com.example.demo.Constants.CATEGORY_KEYWORDS;
-import static com.example.demo.Constants.FILTER_ALL;
+import static com.example.demo.config.Constants.CATEGORY_KEYWORDS;
+import static com.example.demo.config.Constants.FILTER_ALL;
 
 @Service
 public class Filters {

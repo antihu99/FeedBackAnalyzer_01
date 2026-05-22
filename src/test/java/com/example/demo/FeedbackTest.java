@@ -1,5 +1,6 @@
 package com.example.demo;
 
+import com.example.demo.model.Feedback;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 

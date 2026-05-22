@@ -1,4 +1,4 @@
-package com.example.demo;
+package com.example.demo.config;
 
 /**
  * 감정 분류 라벨 (FR-13). UI·필터 파라미터와 동일한 한글 문자열.
