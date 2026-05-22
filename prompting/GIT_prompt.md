@@ -1,7 +1,7 @@
 # Git 명령 기록 — Feedback Analyzer
 
-> `작업규칙.TXT`: Agent 대화 중 사용된 git 명령만 (중복 제거)  
-> 갱신일: 2026-05-21
+> `작업규칙.TXT`: Agent 대화 중 사용된 git 명령만 (**중복 제거**)  
+> **최종 갱신**: 2026-05-21
 
 ---
 
@@ -10,78 +10,110 @@
 | 항목 | 내용 |
 |------|------|
 | 작업 디렉터리 | `d:\Vs_workplace\Java_project\FeedBackAnalyzer_01` |
-| 생성 브랜치 | `A-01`, `SPEC` |
-| 원격 | `origin` → `https://github.com/antihu99/FeedBackAnalyzer_01.git` |
-| 주요 커밋 | `4e1003e` (#00 First File Upload), `a306870` (SPEC 단계 진행) |
+| 현재 브랜치 | `SPEC` |
+| upstream | `origin/SPEC` |
+| 원격 | `https://github.com/antihu99/FeedBackAnalyzer_01.git` |
+| SPEC 커밋 | `a306870` → `9b03001` |
+| PR | #1 Open — `SPEC` → `A-01` |
 
 ---
 
-## 사용된 명령 (실행 순)
+## 커밋 이력 (SPEC)
+
+| 해시 | 메시지 | push |
+|------|--------|------|
+| `a306870` | SPEC 단계 진행 | `git push -u origin SPEC` (최초) |
+| `9b03001` | #SPEC 단계 : PRD, TODO, 작업 시나이오 작성 | `git push origin SPEC` |
+
+---
+
+## 사용된 명령 (실행 순, 중복 제거)
 
 ```bash
-# 저장소 상태·브랜치 확인
 cd "d:\Vs_workplace\Java_project\FeedBackAnalyzer_01"
+
+# --- 조회 ---
 git status
-git branch -a
-git remote -v
-
-# A-01 생성·푸시
-git checkout -b A-01
-git push -u origin A-01
-
-# 브랜치·동기화 확인
-git branch --show-current
 git status -sb
+git branch -a
+git branch --show-current
+git branch -vv
+git remote -v
 git fetch origin
 git rev-parse HEAD
 git rev-parse origin/A-01
+git rev-parse origin/SPEC
 git log --oneline -1 HEAD
 git log --oneline -1 origin/A-01
+git log --oneline -1 origin/SPEC
+git log --oneline -3 SPEC
 git diff --stat origin/A-01...HEAD
+git diff --stat origin/A-01
+git ls-remote --heads origin
 
-# SPEC 생성·커밋·푸시 (.class 제외)
+# --- A-01 ---
+git checkout -b A-01
+git push -u origin A-01
+
+# --- SPEC (1차: analysis.md만) ---
 git checkout -b SPEC
 git add docs/
-git status
 git diff --cached --stat
 git commit -m "SPEC 단계 진행"
 git push -u origin SPEC
 
-# SPEC 이후 확인
-git branch -vv
-git ls-remote --heads origin
+# --- SPEC (2차: docs 00-06, prompting, report, rules) ---
+git add docs/ prompting/ report/ .cursorrules tdd_rules.yaml
+git diff --cached --stat
+git commit -m "#SPEC 단계 : PRD, TODO, 작업 시나이오 작성"
+git push origin SPEC
 ```
 
 ---
 
-## 명령별 용도
+## 명령 ↔ 용도
 
 | 명령 | 용도 |
 |------|------|
-| `git checkout -b A-01` | main에서 통합 브랜치 생성 |
-| `git push -u origin A-01` | 원격 A-01 생성·upstream |
-| `git checkout -b SPEC` | A-01에서 SPEC 분기 |
-| `git add docs/` | 문서만 스테이징 (class 제외) |
-| `git commit -m "SPEC 단계 진행"` | SPEC 커밋 |
-| `git push -u origin SPEC` | 원격 SPEC·upstream |
-| `git fetch origin` | PR/동기화 확인 전 fetch |
+| `git checkout -b A-01` | 통합 브랜치 생성 |
+| `git push -u origin A-01` | 원격 A-01 |
+| `git checkout -b SPEC` | SPEC 분기 (A-01 기준) |
+| `git add docs/` | 1차: analysis만 |
+| `git add docs/ prompting/ report/ .cursorrules tdd_rules.yaml` | 2차: SPEC 전체 산출물 |
+| `git commit -m "SPEC 단계 진행"` | 1차 커밋 |
+| `git commit -m "#SPEC 단계 : PRD, TODO, 작업 시나이오 작성"` | 2차 커밋 |
+| `git push -u origin SPEC` | SPEC 최초 upstream |
+| `git push origin SPEC` | 2차 push |
+| `git fetch origin` | 원격·PR 상태 확인 |
+
+---
+
+## 스테이징 제외 (항상)
+
+- `target/**`
+- `**/*.class`
+- `target/maven-status/`, `target/surefire-reports/`
 
 ---
 
 ## 미실행·실패
 
-| 명령/도구 | 결과 | 비고 |
-|-----------|------|------|
-| `gh pr list --head SPEC` | 실패 | gh 미인증 — GitHub API로 PR #1 확인 대체 |
+| 도구 | 결과 |
+|------|------|
+| `gh pr list` | 실패 (gh 미인증) — GitHub API로 PR #1 확인 |
 
 ---
 
-## 후속 권장 (로컬 docs·prompting·report 푸시용)
+## 후속 권장
 
 ```bash
-git status
-git add docs/ prompting/ report/ .cursorrules tdd_rules.yaml
-# .class / target 미포함 확인
-git commit -m "SPEC: docs 00-06, Mom Test, rules, todo, prompting, report"
+# prompting 갱신본 반영 시 (선택)
+git add prompting/
+git commit -m "SPEC: prompting 기록 갱신 (9b03001 이후)"
 git push origin SPEC
+
+# A-01 머지 후 RED
+git checkout A-01
+git pull origin A-01
+git checkout -b RED
 ```
