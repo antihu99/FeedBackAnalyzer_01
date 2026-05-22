@@ -2,6 +2,7 @@ package com.example.demo;
 
 import com.example.demo.config.Constants;
 import com.example.demo.model.Feedback;
+import com.example.demo.service.KeywordConfigService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -9,17 +10,23 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import static com.example.demo.config.Constants.CATEGORY_KEYWORDS;
 import static com.example.demo.config.Constants.FILTER_ALL;
 
 @Service
 public class Filters {
 
     private final SentimentClassifier sentimentClassifier;
+    private final KeywordConfigService keywordConfig;
 
     @Autowired
-    public Filters(SentimentClassifier sentimentClassifier) {
+    public Filters(SentimentClassifier sentimentClassifier, KeywordConfigService keywordConfig) {
         this.sentimentClassifier = sentimentClassifier;
+        this.keywordConfig = keywordConfig;
+    }
+
+    /** 기존 단위 테스트 호환 */
+    public Filters(SentimentClassifier sentimentClassifier) {
+        this(sentimentClassifier, KeywordConfigService.createInMemoryFromConstants());
     }
 
     public List<Feedback> filterFeedbacks(List<Feedback> dataList, String sentimentFilter, String keywordFilter) {
@@ -60,9 +67,12 @@ public class Filters {
     }
 
     private boolean matchesCategoryKeyword(String lowerText, String keywordFilter) {
+        Map<String, Object> category = keywordConfig.getCategoryKeywords().get(keywordFilter);
+        if (category == null) {
+            return false;
+        }
         @SuppressWarnings("unchecked")
-        Map<String, List<String>> subKeywords = (Map<String, List<String>>) CATEGORY_KEYWORDS
-                .get(keywordFilter).get("sub");
+        Map<String, List<String>> subKeywords = (Map<String, List<String>>) category.get("sub");
         for (List<String> keywords : subKeywords.values()) {
             if (keywords.stream().anyMatch(lowerText::contains)) {
                 return true;

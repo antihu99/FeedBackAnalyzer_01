@@ -1,8 +1,11 @@
 package com.example.demo;
 
-import com.example.demo.config.Constants;
 import com.example.demo.config.Sentiment;
+import com.example.demo.service.KeywordConfigService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 /**
  * 감정 판별 단일 책임 (FR-14). TextAnalyzer·Filters가 동일 규칙을 위임한다.
@@ -10,16 +13,32 @@ import org.springframework.stereotype.Service;
 @Service
 public class SentimentClassifier {
 
+    private final KeywordConfigService keywordConfig;
+
+    @Autowired
+    public SentimentClassifier(KeywordConfigService keywordConfig) {
+        this.keywordConfig = keywordConfig;
+    }
+
+    /** 기존 단위 테스트 호환: in-memory Constants 시드 */
+    public SentimentClassifier() {
+        this(KeywordConfigService.createInMemoryFromConstants());
+    }
+
     public String classify(String text) {
         String lowerText = text.toLowerCase();
-        if (Constants.SENTIMENT_KEYWORDS.get(Sentiment.POSITIVE.getLabel()).stream()
-                .anyMatch(lowerText::contains)) {
+        if (containsAny(lowerText, keywordConfig.getSentimentKeywords()
+                .getOrDefault(Sentiment.POSITIVE.getLabel(), List.of()))) {
             return Sentiment.POSITIVE.getLabel();
         }
-        if (Constants.SENTIMENT_KEYWORDS.get(Sentiment.NEGATIVE.getLabel()).stream()
-                .anyMatch(lowerText::contains)) {
+        if (containsAny(lowerText, keywordConfig.getSentimentKeywords()
+                .getOrDefault(Sentiment.NEGATIVE.getLabel(), List.of()))) {
             return Sentiment.NEGATIVE.getLabel();
         }
         return Sentiment.NEUTRAL.getLabel();
+    }
+
+    private static boolean containsAny(String lowerText, List<String> keywords) {
+        return keywords.stream().anyMatch(lowerText::contains);
     }
 }

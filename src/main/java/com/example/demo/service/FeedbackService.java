@@ -6,6 +6,7 @@ import com.example.demo.Session;
 import com.example.demo.TextAnalyzer;
 import com.example.demo.UIComponents;
 import com.example.demo.model.Feedback;
+import com.example.demo.model.TrendSeries;
 import com.opencsv.CSVReader;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,6 +38,12 @@ public class FeedbackService {
     @Autowired
     private Logger logger;
 
+    @Autowired
+    private TrendService trendService;
+
+    @Autowired
+    private KeywordConfigService keywordConfigService;
+
     private List<Feedback> filteredFeedbacksForExport = new ArrayList<>();
 
     public void prepareIndex(Model model) {
@@ -45,6 +52,28 @@ public class FeedbackService {
         model.addAttribute("success", "피드백 분석기 시작");
         model.addAttribute("feedbacks", feedbacks);
         model.addAttribute("categories", uiComponents.getCategories());
+        attachTrend(model);
+    }
+
+    public void addSentimentKeyword(String sentiment, String keyword, Model model) {
+        keywordConfigService.addSentimentKeyword(sentiment, keyword);
+        prepareIndex(model);
+        model.addAttribute("success", "감정 키워드가 추가되었습니다: " + keyword);
+    }
+
+    public void removeSentimentKeyword(String sentiment, String keyword, Model model) {
+        keywordConfigService.removeSentimentKeyword(sentiment, keyword);
+        prepareIndex(model);
+        model.addAttribute("success", "감정 키워드가 삭제되었습니다: " + keyword);
+    }
+
+    private void attachTrend(Model model) {
+        TrendSeries trend = trendService.loadTrendSeries();
+        model.addAttribute("trendLabels", trend.getLabels());
+        model.addAttribute("trendCounts", trend.getCounts());
+        if (trend.getMessage() != null) {
+            model.addAttribute("trendMessage", trend.getMessage());
+        }
     }
 
     public void analyzeFeedback(String text, Model model) {
@@ -143,6 +172,7 @@ public class FeedbackService {
         model.addAttribute("sentimentResults", sentimentResults);
         model.addAttribute("keywordResults", keywordResults);
         model.addAttribute("categories", uiComponents.getCategories());
+        attachTrend(model);
         if (filteredView) {
             model.addAttribute("filteredFeedbacks", feedbacks);
         } else {

@@ -1,8 +1,8 @@
 package com.example.demo;
 
-import com.example.demo.config.Constants;
 import com.example.demo.config.Sentiment;
 import com.example.demo.model.Feedback;
+import com.example.demo.service.KeywordConfigService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,10 +17,17 @@ public class TextAnalyzer {
     private static Map<String, Integer> globalKw = null;
 
     private final SentimentClassifier sentimentClassifier;
+    private final KeywordConfigService keywordConfig;
 
     @Autowired
-    public TextAnalyzer(SentimentClassifier sentimentClassifier) {
+    public TextAnalyzer(SentimentClassifier sentimentClassifier, KeywordConfigService keywordConfig) {
         this.sentimentClassifier = sentimentClassifier;
+        this.keywordConfig = keywordConfig;
+    }
+
+    /** 기존 단위 테스트 호환 */
+    public TextAnalyzer(SentimentClassifier sentimentClassifier) {
+        this(sentimentClassifier, KeywordConfigService.createInMemoryFromConstants());
     }
 
     public Map<String, Integer> analyzeSentiment(List<Feedback> feedbacks) {
@@ -54,16 +61,16 @@ public class TextAnalyzer {
         return counts;
     }
 
-    private static Map<String, Integer> newEmptyCategoryCounts() {
+    private Map<String, Integer> newEmptyCategoryCounts() {
         Map<String, Integer> counts = new HashMap<>();
-        for (String category : Constants.CATEGORY_KEYWORDS.keySet()) {
+        for (String category : keywordConfig.getCategoryKeywords().keySet()) {
             counts.put(category, 0);
         }
         return counts;
     }
 
-    private static void incrementMatchingCategories(Map<String, Integer> counts, String lowerText) {
-        for (Map.Entry<String, Map<String, Object>> entry : Constants.CATEGORY_KEYWORDS.entrySet()) {
+    private void incrementMatchingCategories(Map<String, Integer> counts, String lowerText) {
+        for (Map.Entry<String, Map<String, Object>> entry : keywordConfig.getCategoryKeywords().entrySet()) {
             String category = entry.getKey();
             @SuppressWarnings("unchecked")
             List<String> mainKeywords = (List<String>) entry.getValue().get("main");

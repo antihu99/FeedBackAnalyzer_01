@@ -170,6 +170,53 @@
 
     <p th:if="${warning}" class="alert alert-warning" th:text="${warning}"></p>
 
+    <!-- Trend Section (FR-17) -->
+    <div class="section">
+        <h3>피드백 Trend</h3>
+        <p th:if="${trendMessage}" class="alert alert-warning" th:text="${trendMessage}"></p>
+        <div class="stats" th:if="${trendLabels != null and !trendLabels.isEmpty()}">
+            <div class="stat-item" th:each="label, stat : ${trendLabels}">
+                <div class="stat-number" th:text="${trendCounts[stat.index]}"></div>
+                <div class="stat-label" th:text="${label}"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Keyword File DB (FR-18) -->
+    <div class="section">
+        <h3>키워드 관리 (File DB)</h3>
+        <form th:action="@{/keywords/add}" method="post">
+            <div class="form-group">
+                <label for="addSentiment">감정:</label>
+                <select id="addSentiment" name="sentiment">
+                    <option value="긍정">긍정</option>
+                    <option value="부정">부정</option>
+                    <option value="중립">중립</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="addKeyword">키워드 추가:</label>
+                <input type="text" id="addKeyword" name="keyword" placeholder="키워드 입력">
+            </div>
+            <button type="submit">추가</button>
+        </form>
+        <form th:action="@{/keywords/remove}" method="post" style="margin-top: 10px;">
+            <div class="form-group">
+                <label for="removeSentiment">감정:</label>
+                <select id="removeSentiment" name="sentiment">
+                    <option value="긍정">긍정</option>
+                    <option value="부정">부정</option>
+                    <option value="중립">중립</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="removeKeyword">키워드 삭제:</label>
+                <input type="text" id="removeKeyword" name="keyword" placeholder="키워드 입력">
+            </div>
+            <button type="submit" class="btn-warning">삭제</button>
+        </form>
+    </div>
+
     <!-- Results Section -->
     <div class="section" th:if="${sentimentResults} or ${keywordResults}">
         <h3>분석 결과</h3>

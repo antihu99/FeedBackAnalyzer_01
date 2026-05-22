@@ -48,4 +48,20 @@ public class FeedbackController {
     public void downloadFile(HttpServletResponse response) throws IOException {
         feedbackService.writeFilteredCsv(response);
     }
+
+    @PostMapping("/keywords/add")
+    public String addKeyword(@RequestParam("sentiment") String sentiment,
+                             @RequestParam("keyword") String keyword,
+                             Model model) {
+        feedbackService.addSentimentKeyword(sentiment, keyword, model);
+        return "index";
+    }
+
+    @PostMapping("/keywords/remove")
+    public String removeKeyword(@RequestParam("sentiment") String sentiment,
+                                @RequestParam("keyword") String keyword,
+                                Model model) {
+        feedbackService.removeSentimentKeyword(sentiment, keyword, model);
+        return "index";
+    }
 }
