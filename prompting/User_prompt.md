@@ -20,7 +20,7 @@
 
 |------|------|
 
-| 총 프롬프트 수 | **41** |
+| 총 프롬프트 수 | **42** |
 
 | SPEC 관련 | #1~#17 |
 
@@ -130,6 +130,7 @@
 
 | 40 | 2026-05-22 | Meta | **prompting 동기화** | prompting 폴더에 있는 프롬프트들을 동기화 해주세요 |
 | 41 | 2026-05-22 | REFACTORING | **작업 재개** | agent PROMPT 사라짐 → REFACTORING step4~5 이어서 진행 |
+| 42 | 2026-05-22 | REFACTORING | **Git push + step6** | step4~5 push, step6 패키지 분리, report/02, origin/REFACTORING push |
 
 
 
@@ -150,7 +151,7 @@
 | RED | `01_RED_prompt.md` | 완료 |
 
 | GREEN | `02_GREEN_prompt.md` | 완료 |
-| REFACTORING | `03_REFACTORING_prompt.md` | step4~5 완료 |
+| REFACTORING | `03_REFACTORING_prompt.md` | step4~6 완료 |
 
 | Git 명령 | `GIT_prompt.md` | 본 갱신 포함 |
 
