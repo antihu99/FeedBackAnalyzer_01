@@ -66,6 +66,7 @@ mvn spring-boot:run
 | `05_code_smell.md` | 코드 스멜 사례 3건 |
 | `06_todo_list.md` | To-Do·마일스톤·회귀 체크리스트 (Phase 6) |
 | `07_RED_test_plan.md` | RED 단계 **TEST_PLAN** (TC PASS/FAIL 명세) |
+| `08_GREEN_test_results.md` | GREEN 단계 **TC 실행 결과** (머지 전 실측) |
 
 ### 3.1.0. pctf/ — 단계별 PCTF (Prompt 입력)
 
@@ -73,6 +74,7 @@ mvn spring-boot:run
 |------|--------|
 | `00_RED_test_plan_PCTF.md` | `docs/07_RED_test_plan.md` |
 | `01_RED_PCTF_prompt.md` | `src/test/**`, JaCoCo, `report/00_RED_coverage_report.md` |
+| `02_GREEN_PCTF_prompt.md` | 프로덕션 최소 수정, `docs/08_GREEN_test_results.md`, `report/01_GREEN_bugfix_report.md` |
 
 ### 3.1.1. 프로젝트 루트 — Agent·TDD 규칙 (YAML)
 
@@ -237,6 +239,7 @@ git push -u origin SPEC
 
 ### GREEN
 
+- [ ] `pctf/02_GREEN_PCTF_prompt.md` — `docs/07_RED_test_plan.md` TC 단계별 (TC-NEUTRAL-01/02)
 - [ ] FR-09 중립 필터 (`01_analysis.md` P0-1)
 - [ ] FR-10 multiline
 - [ ] FR-11 로그 UI
