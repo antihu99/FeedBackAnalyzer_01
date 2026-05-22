@@ -29,16 +29,7 @@ public class Filters {
 
         if (!"전체".equals(sFilter)) {
             for (Feedback item : dataList) {
-                String txt = item.getText().toLowerCase();
-                String currentSentiment = "중립";
-
-                if (S_KEYWORDS.get("긍정").stream().anyMatch(key -> txt.contains(key))) {
-                    currentSentiment = "긍정";
-                } else if (S_KEYWORDS.get("부정").stream().anyMatch(key -> txt.contains(key))) {
-                    currentSentiment = "부정";
-                } else if (S_KEYWORDS.get("중립").stream().anyMatch(key -> txt.contains(key))) {
-                    currentSentiment = "중립";
-                }
+                String currentSentiment = resolveSentimentLikeAnalyzer(item.getText());
 
                 if (currentSentiment.equals(sFilter)) {
                     tmpFiltered.add(item);
@@ -70,5 +61,17 @@ public class Filters {
         }
 
         return finalFiltered;
+    }
+
+    /** TextAnalyzer.sent()와 동일: Constants 긍/부만 검사, 없으면 중립 (FR-09) */
+    private String resolveSentimentLikeAnalyzer(String text) {
+        String txt = text.toLowerCase();
+        if (Constants.SENTIMENT_KEYWORDS.get("긍정").stream().anyMatch(k -> txt.contains(k))) {
+            return "긍정";
+        }
+        if (Constants.SENTIMENT_KEYWORDS.get("부정").stream().anyMatch(k -> txt.contains(k))) {
+            return "부정";
+        }
+        return "중립";
     }
 }
